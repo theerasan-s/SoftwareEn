@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import test from '@/components/test'
+import budgetInfo from '@/components/budgetInfo'
 import hello from '@/components/HelloWorld'
 import home from '@/components/Home'
+
 
 Vue.use(Router)
 
@@ -19,5 +20,10 @@ export default new Router({
             name: 'home',
             component: hello
           },
+          {
+            path: '/budgetInfo',
+            name: budgetInfo,
+            component: budgetInfo
+          }
     ]
 })
