@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <router-view></router-view>
+    <h1>Reeee</h1>
   </v-app>
 </template>
 
