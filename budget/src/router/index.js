@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import test from '@/components/test'
 import hello from '@/components/HelloWorld'
+import home from '@/components/Home'
 
 Vue.use(Router)
 
@@ -11,7 +12,7 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: test
+            component: home
           },
           {
             path: '/s',
