@@ -11,7 +11,7 @@
               <v-card-title class="headline">งบประมาณทั้งหมด</v-card-title>
 
               <v-card-text style="text-align:center " class="texta">
-                <p>{{allbudget}}</p>
+                <p>{{allbudget}}</p> <!-- Show all budget -->
                 <p>บาท</p>
               </v-card-text>
             </v-row>
@@ -24,7 +24,7 @@
               <v-card-title class="headline">เงินคงเหลือทั้งหมด</v-card-title>
 
               <v-card-text style="text-align:center" class="texta">
-                <p>{{remainbudget}}</p>
+                <p>{{remainbudget}}</p> <!-- Show remain budget -->
                 <p>บาท</p>
               </v-card-text>
             </v-row>
@@ -37,7 +37,7 @@
               <v-card-title class="headline">จำนวนโครงการทั้งหมด</v-card-title>
 
               <v-card-text style="text-align:center" class="texta">
-                <p>{{allproject}}</p>
+                <p>{{allproject}}</p> <!-- Show all Project -->
                 <p>โครงการ</p>
               </v-card-text>
             </v-row>
@@ -50,7 +50,7 @@
               <v-card-title class="headline">ดำเนินการสำเร็จ</v-card-title>
 
               <v-card-text style="text-align:center" class="texta">
-                <p>{{completedproject}}</p>
+                <p>{{completedproject}}</p> <!-- Show completed project -->
                 <p>โครงการ</p>
               </v-card-text>
             </v-row>
@@ -65,33 +65,33 @@
           <v-overflow-btn
             id="department"
             class="my-2"
-            :items="dropdown_font"
+            :items="departmentselect"
             label="สาขาวิชา"
             target="#dropdown-example"
             style="display:inline-block"
-          ></v-overflow-btn>
+          ></v-overflow-btn> <!-- Select Department -->
         </v-col>
         <v-col cols="3">
-          <label for="year" class="mr-5">ปีการศึกษา :</label>
-          <v-overflow-btn
+          <label for="year" class="mr-5">ปีการศึกษา :</label> 
+          <v-overflow-btn 
             id="year"
             class="my-2"
-            :items="dropdown_font"
+            :items="year"
             label="ปีการศึกษา"
             target="#dropdown-example"
             style="display:inline-block"
-          ></v-overflow-btn>
+          ></v-overflow-btn> <!-- Change to pick from calendar -->
         </v-col>
         <v-col cols="3">
           <label for="project" class="mr-5">โครงการ :</label>
           <v-overflow-btn
             id="project"
             class="my-2"
-            :items="dropdown_font"
+            :items="mainpro"
             label="โครงการ"
             target="#dropdown-example"
             style="display:inline-block"
-          ></v-overflow-btn>
+          ></v-overflow-btn> <!-- Select main project -->
         </v-col>
       </v-row>
     </v-container>
@@ -106,9 +106,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in desserts" :key="item.name">
-                <td class="text-center">{{ item.name }}</td>
-                <td class="text-center">{{ item.calories }} บาท</td>
+              <tr v-for="item in miniproject" :key="item.name">
+                <td class="text-center">{{ item.name }}</td> <!-- Show miniproject's name -->
+                <td class="text-center">{{ item.budget }} บาท</td> <!-- show miniproject's budget -->
          
               </tr>
             </tbody>
@@ -125,51 +125,51 @@ export default {
   name: "home",
   components: { navbar },
   data: () => ({
-    allbudget: 10,
-    remainbudget: 20,
-    allproject: 30,
-    completedproject: 40,
-    desserts: [
+    allbudget: 10, /* All Budget variable*/
+    remainbudget: 20, /* Remain Budget variable*/
+    allproject: 30, /* All Project variable*/
+    completedproject: 40, /* Completed Project variable */
+    departmentselect: ['วิศวกรรมโยธา','วิศวกรรมไฟฟ้า','วิศวกรรมการเกษตร','วิศวกรรมอุตสาหการ','วิศวกรรมเครื่องกล','วิศวกรรมสิ่งแวดล้อม','วิศวกรรมคอมพิวเตอร์'] /* All Department variable */,
+    miniproject: /* All miniproject in main project */ /* 2 variable: name,budget */[
       {
         name: "Frozen Yogurt",
-        calories: 159,
-        year: 10
+        budget: 159,
       },
       {
         name: "Ice cream sandwich",
-        calories: 237
+        budget: 237
       },
       {
         name: "Eclair",
-        calories: 262
+        budget: 262
       },
       {
         name: "Cupcake",
-        calories: 305
+        budget: 305
       },
       {
         name: "Gingerbread",
-        calories: 356
+        budget: 356
       },
       {
         name: "Jelly bean",
-        calories: 375
+        budget: 375
       },
       {
         name: "Lollipop",
-        calories: 392
+        budget: 392
       },
       {
         name: "Honeycomb",
-        calories: 408
+        budget: 408
       },
       {
         name: "Donut",
-        calories: 452
+        budget: 452
       },
       {
         name: "KitKat",
-        calories: 518
+        budget: 518
       }
     ]
   })
@@ -178,7 +178,7 @@ export default {
 
 <style>
 .texta {
-  font-size: 20px;
+  font-size: 23px; /* Card's fontsize */
 }
 
 .cardt {

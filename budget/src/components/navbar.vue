@@ -13,8 +13,10 @@
             <v-btn color="#3E3C3C" dark v-on="on">รายละเอียดโครงการ</v-btn>
           </template>
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index">
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item v-for="(item) in departmentselect" :key="item">
+              <v-list-item-content>
+                <v-list-item-action>{{ item }}</v-list-item-action>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -23,10 +25,27 @@
       <v-spacer></v-spacer>
 
       <v-avatar color="black">
-      <v-btn icon>
+        <v-btn icon>
           <v-icon>mdi-account-circle</v-icon>
-      </v-btn>
-    </v-avatar>
+          <!-- Manage Account -->
+        </v-btn>
+      </v-avatar>
     </v-app-bar>
   </div>
 </template>
+
+<script>
+export default {
+  data: () => ({
+    departmentselect: [
+      "วิศวกรรมโยธา",
+      "วิศวกรรมไฟฟ้า",
+      "วิศวกรรมการเกษตร",
+      "วิศวกรรมอุตสาหการ",
+      "วิศวกรรมเครื่องกล",
+      "วิศวกรรมสิ่งแวดล้อม",
+      "วิศวกรรมคอมพิวเตอร์"
+    ] /* All Department variable */
+  })
+};
+</script>
