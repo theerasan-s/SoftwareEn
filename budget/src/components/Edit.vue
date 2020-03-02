@@ -108,11 +108,17 @@
             <v-row justify="center">
               <v-col cols="12">
                   <div style="text-align:center">
-                    <v-btn class="mx-auto" rounded outlined color="indigo" @click="dialog = false">โอนย้าย</v-btn>
+                    <v-btn class="mx-auto" rounded color="primary" @click="dialog = false" light width="40%">โอนย้าย</v-btn>
                   </div>
               </v-col>
-              <v-btn large class="ma-2" color="error" @click="dialog = false" light>ยกเลิก</v-btn>
-              <v-btn large class="ma-2" color="success" @click="dialog = false" light>ยืนยัน</v-btn>
+              <v-btn large class="ma-2" color="error" @click="dialog = false" light>
+                ยกเลิก
+                <v-icon right>mdi-check-circle-outline</v-icon>
+              </v-btn>
+              <v-btn large class="ma-2" color="success" @click="dialog = false" light>
+                ยืนยัน
+                <v-icon right>mdi-check-circle-outline</v-icon>
+                </v-btn>
             </v-row>
             
           
