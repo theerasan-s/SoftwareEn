@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import budgetInfo from '@/components/budgetInfo'
 import hello from '@/components/HelloWorld'
 import home from '@/components/Home'
+import edit from '@/components/Edit'
 
 
 Vue.use(Router)
@@ -24,6 +25,11 @@ export default new Router({
             path: '/budgetInfo',
             name: budgetInfo,
             component: budgetInfo
+          },
+          {
+            path: '/edit',
+            name: edit,
+            component: edit
           }
     ]
 })
