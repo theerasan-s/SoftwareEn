@@ -11,7 +11,8 @@
               <v-card-title class="headline">งบประมาณทั้งหมด</v-card-title>
 
               <v-card-text style="text-align:center " class="texta">
-                <p>{{allbudget}}</p> <!-- Show all budget -->
+                <p>{{allbudget}}</p>
+                <!-- Show all budget -->
                 <p>บาท</p>
               </v-card-text>
             </v-row>
@@ -24,7 +25,8 @@
               <v-card-title class="headline">เงินคงเหลือทั้งหมด</v-card-title>
 
               <v-card-text style="text-align:center" class="texta">
-                <p>{{remainbudget}}</p> <!-- Show remain budget -->
+                <p>{{remainbudget}}</p>
+                <!-- Show remain budget -->
                 <p>บาท</p>
               </v-card-text>
             </v-row>
@@ -37,7 +39,8 @@
               <v-card-title class="headline">จำนวนโครงการทั้งหมด</v-card-title>
 
               <v-card-text style="text-align:center" class="texta">
-                <p>{{allproject}}</p> <!-- Show all Project -->
+                <p>{{allproject}}</p>
+                <!-- Show all Project -->
                 <p>โครงการ</p>
               </v-card-text>
             </v-row>
@@ -50,7 +53,8 @@
               <v-card-title class="headline">ดำเนินการสำเร็จ</v-card-title>
 
               <v-card-text style="text-align:center" class="texta">
-                <p>{{completedproject}}</p> <!-- Show completed project -->
+                <p>{{completedproject}}</p>
+                <!-- Show completed project -->
                 <p>โครงการ</p>
               </v-card-text>
             </v-row>
@@ -69,18 +73,18 @@
             label="สาขาวิชา"
             target="#dropdown-example"
             style="display:inline-block"
-          ></v-overflow-btn> <!-- Select Department -->
+          ></v-overflow-btn>
+          <!-- Select Department -->
         </v-col>
-        <v-col cols="3">
-          <label for="year" class="mr-5">ปีการศึกษา :</label> 
-          <v-overflow-btn 
-            id="year"
-            class="my-2"
-            :items="year"
-            label="ปีการศึกษา"
-            target="#dropdown-example"
-            style="display:inline-block"
-          ></v-overflow-btn> <!-- Change to pick from calendar -->
+        <v-col cols="2">
+          <label for="year" class="mr-5">ปีการศึกษา :</label>
+          <v-menu>
+            <template v-slot:activator="{ on }">
+                <v-text-field v-on="on" class="my-2" items=""></v-text-field>
+              </template>
+              <v-date-picker v-model="date" type="month" width="290" class="mt-4"></v-date-picker>
+          </v-menu>
+          <!-- Change to pick from calendar -->
         </v-col>
         <v-col cols="3">
           <label for="project" class="mr-5">โครงการ :</label>
@@ -90,8 +94,9 @@
             :items="mainpro"
             label="โครงการ"
             target="#dropdown-example"
-            style="display:inline-block"
-          ></v-overflow-btn> <!-- Select main project -->
+            style="display:inline-block" 
+          ></v-overflow-btn>
+          <!-- Select main project -->
         </v-col>
       </v-row>
     </v-container>
@@ -107,9 +112,10 @@
             </thead>
             <tbody>
               <tr v-for="item in miniproject" :key="item.name">
-                <td class="text-center">{{ item.name }}</td> <!-- Show miniproject's name -->
-                <td class="text-center">{{ item.budget }} บาท</td> <!-- show miniproject's budget -->
-         
+                <td class="text-center">{{ item.name }}</td>
+                <!-- Show miniproject's name -->
+                <td class="text-center">{{ item.budget }} บาท</td>
+                <!-- show miniproject's budget -->
               </tr>
             </tbody>
           </template>
@@ -125,15 +131,24 @@ export default {
   name: "home",
   components: { navbar },
   data: () => ({
-    allbudget: 10, /* All Budget variable*/
-    remainbudget: 20, /* Remain Budget variable*/
-    allproject: 30, /* All Project variable*/
-    completedproject: 40, /* Completed Project variable */
-    departmentselect: ['วิศวกรรมโยธา','วิศวกรรมไฟฟ้า','วิศวกรรมการเกษตร','วิศวกรรมอุตสาหการ','วิศวกรรมเครื่องกล','วิศวกรรมสิ่งแวดล้อม','วิศวกรรมคอมพิวเตอร์'] /* All Department variable */,
-    miniproject: /* All miniproject in main project */ /* 2 variable: name,budget */[
+    date: new Date().toISOString().substr(0, 7),
+    allbudget: 10 /* All Budget variable*/,
+    remainbudget: 20 /* Remain Budget variable*/,
+    allproject: 30 /* All Project variable*/,
+    completedproject: 40 /* Completed Project variable */,
+    departmentselect: [
+      "วิศวกรรมโยธา",
+      "วิศวกรรมไฟฟ้า",
+      "วิศวกรรมการเกษตร",
+      "วิศวกรรมอุตสาหการ",
+      "วิศวกรรมเครื่องกล",
+      "วิศวกรรมสิ่งแวดล้อม",
+      "วิศวกรรมคอมพิวเตอร์"
+    ] /* All Department variable */,
+    miniproject: /* All miniproject in main project */ /* 2 variable: name,budget */ [
       {
         name: "Frozen Yogurt",
-        budget: 159,
+        budget: 159
       },
       {
         name: "Ice cream sandwich",
