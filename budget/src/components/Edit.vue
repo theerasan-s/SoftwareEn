@@ -100,7 +100,6 @@
               <v-col cols="12" md="8">
                 <v-textarea rows="3" label="ปัญหาอุปสรรค" outlined></v-textarea>              
               </v-col>             
-              
             </v-row>
           </v-container>          
         <v-card-actions>
@@ -120,10 +119,6 @@
                 <v-icon right>mdi-check-circle-outline</v-icon>
                 </v-btn>
             </v-row>
-            
-          
-          
-           
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -136,6 +131,9 @@
       dialog: false,
       mainProject: 'ส่งลุงตู่กลับบ้าน'
     }),
+    mounted() {
+
+    }
   }
 </script>
   
