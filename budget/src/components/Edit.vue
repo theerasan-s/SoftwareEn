@@ -126,14 +126,12 @@
 </template>
 
 <script>
+   import firebase from 'firebase'
    export default {
     data: () => ({
       dialog: false,
       mainProject: 'ส่งลุงตู่กลับบ้าน'
     }),
-    mounted() {
-
-    }
   }
 </script>
   
