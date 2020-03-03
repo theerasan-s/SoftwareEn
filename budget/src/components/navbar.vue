@@ -2,9 +2,7 @@
   <div>
     <v-app-bar color="#3E3C3C" dense dark>
       <v-toolbar-title>ระบบติดตามการใช้จ่ายตามแผนงบประมาณ</v-toolbar-title>
-
       <v-spacer></v-spacer>
-
       <v-btn color="#3E3C3C">หน้าหลัก</v-btn>
       <v-spacer></v-spacer>
       <div class="text-center">
@@ -21,9 +19,7 @@
           </v-list>
         </v-menu>
       </div>
-
       <v-spacer></v-spacer>
-
       <v-avatar color="black">
         <v-btn icon>
           <v-icon>mdi-account-circle</v-icon>
