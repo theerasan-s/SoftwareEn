@@ -66,14 +66,12 @@
       <v-row>
         <v-col cols="3">
           <label for="department" class="mr-5">สาขาวิชา :</label>
-          <v-overflow-btn
-            id="department"
-            class="my-2"
+          <v-select
             :items="departmentselect"
+            menu-props="auto"
             label="สาขาวิชา"
-            target="#dropdown-example"
-            style="display:inline-block"
-          ></v-overflow-btn>
+            hide-details
+            single-line></v-select>
           <!-- Select Department -->
         </v-col>
         <v-col cols="2">

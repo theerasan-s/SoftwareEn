@@ -1,0 +1,24 @@
+ mounted() {
+      const ref = firebase.database().ref('coe/year/2563/mainProject/-M1UVMyIE75yFo-Cxk3e/subProject')
+      ref.push().set({
+        project: 'ส่งลุงตู่กลับบ้าน ภาค 2 ',
+        strategicIssue: 1,
+        stategic: 1,
+        tactic: 1,
+        measure: 'ร้อยละนักศึกษาที่ได้ร่วมส่งลุงตู่',
+        targetPoint: 'ร้อยละ95',
+        responsible: 'วิศวกรรมคอมพิวเตอร์',
+        budgetPlan: 163470,
+        transfer: 0,
+        deposit: 0,
+        remainPlan: 163470,
+        approval: 107340,
+        expense: 8777,
+        remainApproval: 56130,
+        remainExpense: 154693,
+        comment: '',
+        result: '',
+        resultDetail: '',
+        obstacle: '',
+      })
+    }

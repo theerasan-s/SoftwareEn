@@ -1,16 +1,13 @@
 <template>
   <div>
     <v-app-bar color="#3E3C3C" dense dark>
-      <v-toolbar-title style="margin-top: 0px">ระบบติดตามการใช้จ่ายตามแผนงบประมาณ</v-toolbar-title>
-
+      <v-toolbar-title style="margin-top: 0px" class="navbar">ระบบติดตามการใช้จ่ายตามแผนงบประมาณ</v-toolbar-title>
       <v-spacer></v-spacer>
-
-      <v-btn color="#3E3C3C" style="margin-top: 0px">หน้าหลัก</v-btn>
-      <v-spacer></v-spacer>
-      <div class="text-center">
+      <a style="color:white" class="mr-5 navbar">หน้าหลัก</a>
+        <div class="text-center">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
-            <v-btn color="#3E3C3C" dark v-on="on" style="margin-top: 0px">รายละเอียดโครงการ</v-btn>
+            <a v-on="on" style="color:white" class="mr-3 navbar">รายละเอียดโครงการ</a>
           </template>
           <v-list>
             <v-list-item v-for="(item) in departmentselect" :key="item">
@@ -21,16 +18,20 @@
           </v-list>
         </v-menu>
       </div>
-      <v-spacer></v-spacer>
-      <v-avatar color="black">
-        <v-btn icon style="margin-top: 0px">
+        <v-btn icon class="mt-0">
           <v-icon>mdi-account-circle</v-icon>
           <!-- Manage Account -->
         </v-btn>
-      </v-avatar>
     </v-app-bar>
   </div>
 </template>
+
+<style>
+  .navbar{
+    font-family: "Prompt", sans-serif;
+  }
+
+</style>
 
 <script>
 export default {
