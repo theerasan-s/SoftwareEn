@@ -1,17 +1,11 @@
 <template>
   <div>
     <v-app-bar color="#3E3C3C" dense dark>
-<<<<<<< HEAD
       <v-toolbar-title style="margin-top: 0px">ระบบติดตามการใช้จ่ายตามแผนงบประมาณ</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-btn color="#3E3C3C" style="margin-top: 0px">หน้าหลัก</v-btn>
-=======
-      <v-toolbar-title>ระบบติดตามการใช้จ่ายตามแผนงบประมาณ</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn color="#3E3C3C">หน้าหลัก</v-btn>
->>>>>>> f28fb23cd991c48e5542bc49d1132251e76d7902
       <v-spacer></v-spacer>
       <div class="text-center">
         <v-menu offset-y>
