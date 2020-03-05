@@ -5,7 +5,7 @@
 
     <v-container>
       <v-row>
-        <v-col cols="3">
+        <v-col cols="12" md="3">
           <v-card class="mx-auto">
             <v-row justify="center">
               <v-card-title class="headline">งบประมาณทั้งหมด</v-card-title>
@@ -19,7 +19,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="3">
+        <v-col cols="12" md="3">
           <v-card class="mx-auto">
             <v-row justify="center">
               <v-card-title class="headline">เงินคงเหลือทั้งหมด</v-card-title>
@@ -33,7 +33,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="3">
+        <v-col cols="12" md="3">
           <v-card class="mx-auto">
             <v-row justify="center">
               <v-card-title class="headline">จำนวนโครงการทั้งหมด</v-card-title>
@@ -47,7 +47,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="3">
+        <v-col cols="12" md="3">
           <v-card class="mx-auto">
             <v-row justify="center">
               <v-card-title class="headline">ดำเนินการสำเร็จ</v-card-title>
@@ -64,7 +64,7 @@
     </v-container>
     <v-container>
       <v-row>
-        <v-col cols="3">
+        <v-col cols="12" md="3">
           <label for="department" class="mr-5">สาขาวิชา :</label>
           <v-select
             :items="departmentselect"
@@ -74,7 +74,7 @@
             single-line></v-select>
           <!-- Select Department -->
         </v-col>
-        <v-col cols="2">
+        <v-col cols="12" md="3">
           <label for="year" class="mr-5">ปีการศึกษา :</label>
           <v-menu>
             <template v-slot:activator="{ on }">
@@ -84,7 +84,7 @@
           </v-menu>
           <!-- Change to pick from calendar -->
         </v-col>
-        <v-col cols="3">
+        <v-col cols="12" md="3">
           <label for="project" class="mr-5">โครงการ :</label>
           <v-overflow-btn
             id="project"
@@ -124,7 +124,8 @@
 </template>
 
 <script>
-import navbar from "./navbar";
+import navbar from "./navbar"
+import firebase from 'firebase'
 export default {
   name: "home",
   components: { navbar },
@@ -134,6 +135,7 @@ export default {
     remainbudget: 20 /* Remain Budget variable*/,
     allproject: 30 /* All Project variable*/,
     completedproject: 40 /* Completed Project variable */,
+    mainpro:[],
     departmentselect: [
       "วิศวกรรมโยธา",
       "วิศวกรรมไฟฟ้า",
@@ -185,7 +187,16 @@ export default {
         budget: 518
       }
     ]
-  })
+  }),
+  async created() {
+    const ref = firebase.database().ref()
+    const data = await ref.once('value')
+    const projectData = data.val()
+    console.log(projectData)
+    
+    
+
+  }
 };
 </script>
 
