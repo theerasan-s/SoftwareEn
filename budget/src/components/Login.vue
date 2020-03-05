@@ -27,7 +27,7 @@
                 flat
                 
               >
-                <v-toolbar-title>Login Budjet System</v-toolbar-title>
+                <v-toolbar-title>Login Budget System</v-toolbar-title>
                 <v-spacer />
                
               </v-toolbar>
@@ -37,23 +37,25 @@
                   <v-text-field
                     label="Login"
                     name="login"
-                   
+                    id="username"
                     type="text"
+                    v-model="username"
                   />
 
                   <v-text-field
                     id="password"
                     label="Password"
                     name="password"
-                    
+
                     type="password"
+                    v-model="password"
                   />
                 </v-form>
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
                 <v-btn color="#AF281A" dark
-                flat>Login</v-btn>
+                flat v-on:click="submit">Login</v-btn>
               </v-card-actions></div>
               
             </v-card>
@@ -65,10 +67,23 @@
 </template>
 
 <script>
+import firebase from "firebase"
   export default {
+    data () {
+    return {
+      username: '',
+      password: '',}
+      },
     props: {
       source: String,
     },
+    methods: {
+      submit(){
+        console.log("ID = "+ this.username);
+        console.log("Password = " + this.password)
+        
+      }
+    }
   }
 </script>
 
