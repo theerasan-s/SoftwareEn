@@ -136,27 +136,7 @@
 </script>
   
 <style>
-button{
-  margin-top: 50px;
-}
 
-.v-text-field label{
-    font-size: 20px;
-    color: black;
-  }
-.v-card__text {
-  padding: 0;
-}
-.v-col{
-  padding: 8px;
-
-}
-.v-card__actions{
-  padding: 0px;
-}
-.container{
-  padding: 0px 24px 0px 0px;
-}
 
 .application{
   font-family: "Prompt", sans-serif;
