@@ -5,6 +5,7 @@ import hello from '@/components/HelloWorld'
 import home from '@/components/Home'
 import edit from '@/components/Edit'
 import login from '@/components/Login'
+import viewDetail from '@/components/viewDetail'
 
 
 Vue.use(Router)
@@ -36,6 +37,14 @@ export default new Router({
             path: '/login',
             name: login,
             component: login
-          }
+          },
+        
+          {
+            path: '/viewDetail',
+            name: viewDetail,
+            component: viewDetail
+          },
+          
+
     ]
 })
