@@ -2,7 +2,7 @@
  <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn color="primary" dark v-on="on">Open Edit</v-btn>
+         <v-icon right  small v-on="on">mdi-pencil</v-icon>
       </template>
       <v-card>
         <v-row justify="center">
