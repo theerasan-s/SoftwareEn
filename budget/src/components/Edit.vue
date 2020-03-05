@@ -2,7 +2,7 @@
  <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on }">
-        <v-btn color="primary" dark v-on="on">Open Edit</v-btn>
+         <v-icon right  small v-on="on">mdi-pencil</v-icon>
       </template>
       <v-card>
         <v-row justify="center">
@@ -132,6 +132,15 @@
       dialog: false,
       mainProject: 'ส่งลุงตู่กลับบ้าน'
     }),
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+     
+     
+=======
+
+>>>>>>> 5a62ac94c4c63644066894ac9c44673895cad495
+>>>>>>> 7e9be73320753332c313efdcc6dba7a1e1155c59
   }
 </script>
   

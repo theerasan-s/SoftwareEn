@@ -36,10 +36,10 @@
                 <v-form>
                   <v-text-field
                     label="Login"
-                    name="login"
-                    id="username"
+                    name="email"
+                    id="email"
                     type="text"
-                    v-model="username"
+                    v-model="email"
                   />
 
                   <v-text-field
@@ -54,8 +54,10 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
+                <p class="errorshowclass">{{errorshow}}</p>
                 <v-btn color="#AF281A" dark
-                flat v-on:click="submit">Login</v-btn>
+                 v-on:click="loginUserData()">Login</v-btn>
+                 <v-btn color="#AF2215" v-on:click="writeUserData(username,depart,email,password,role)">Writedata</v-btn>
               </v-card-actions></div>
               
             </v-card>
@@ -72,22 +74,56 @@ import firebase from "firebase"
     data () {
     return {
       username: '',
-      password: '',}
+      password: '',
+      depart:'',
+      email:'',
+      errorshow:'',
+      }
       },
     props: {
       source: String,
     },
     methods: {
-      submit(){
-        console.log("ID = "+ this.username);
-        console.log("Password = " + this.password)
+      loginUserData(){
+        const ths = this
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(()=>{
+          console.log("Login Success")
+        }).catch(function(error) {
+          ths.errorshow = error.message;
+          
+          console.log(ths.errorshow);
         
-      }
+  });
+        
+        
+        
+      },
+      writeUserData(username,depart,email,password,role) {
+        firebase.auth().createUserWithEmailAndPassword(email,password).then(() =>{
+          firebase.database().ref('users/' + username).set({
+          username: username,
+          depart: depart,
+          uid: firebase.auth().currentUser.uid,
+          email: email,
+          role: role});
+          console.log("Register Success")
+
+        }).catch(function(error) {
+          ths.errorshow = error.message;
+          
+          console.log(ths.errorshow);
+        
+  });
+          
+}
     }
   }
 </script>
 
 <style>
-
+.errorshowclass{
+  font-size: 15px;
+  color: red;
+}
 
 </style>

@@ -77,6 +77,7 @@
         </v-col>
         <v-col cols="12" md="3">
           <label for="year" class="mr-5">ปีการศึกษา :</label>
+<<<<<<< HEAD
           <v-select
             v-model="selectYear"
             :items="projectYear"
@@ -85,10 +86,20 @@
             label="ปีการศึกษา"
             hide-details
             single-line></v-select>
+=======
+          <v-menu>
+            <template>
+                <v-select v-on="on" class="my-2" items=""></v-select>
+              </template>
+              <v-date-picker v-model="date" type="month" width="290" class="mt-4" id="date"></v-date-picker>
+          </v-menu>
+          <!-- Change to pick from calendar -->
+>>>>>>> 7e9be73320753332c313efdcc6dba7a1e1155c59
         </v-col>
         <v-col cols="12" md="3">
           <label for="project" class="mr-5">โครงการ :</label>
           <v-select
+<<<<<<< HEAD
             v-model="selectProject"
             :items="projectList"
             menu-props="auto"
@@ -96,6 +107,15 @@
             hide-details
             @change="loadSubProject"
             single-line></v-select>
+=======
+            id="project"
+            class="my-2"
+            :items="mainpro"
+            label="โครงการ"
+            target="#dropdown-example"
+            style="display:inline-block" 
+          ></v-select>
+>>>>>>> 7e9be73320753332c313efdcc6dba7a1e1155c59
           <!-- Select main project -->
         </v-col>
       </v-row>
@@ -158,6 +178,7 @@ export default {
     listofProject:[]//[{}]
     
   }),
+<<<<<<< HEAD
   methods: {
     async loadData(){
       const ref = firebase.database().ref('department')
@@ -286,6 +307,18 @@ export default {
   },
   
 }
+=======
+  /*async created() {
+    const ref = firebase.database().ref()
+    const data = await ref.once('value')
+    const projectData = data.val()
+    
+    
+    
+
+  }*/
+};
+>>>>>>> 7e9be73320753332c313efdcc6dba7a1e1155c59
 </script>
 
 <style>
