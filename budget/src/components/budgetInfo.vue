@@ -7,68 +7,8 @@
         >
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
-          
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Dessert name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.action="{ item }">
-      <v-icon small class="mr-2" @click="editItem(item)">
-        edit
-      </v-icon>
-      <v-icon small @click="deleteItem(item)">
-        delete
-      </v-icon>
-    </template>
-    
   </v-data-table>
 </template>
 
@@ -83,8 +23,6 @@ export default {
   },
 
   data: () => ({
-    search: "",
-    dialog: false,
     headers: [
       {
         text: "ที่",
@@ -112,23 +50,30 @@ export default {
       { text: "รายละเอียดผลการดำเนินงาน", value: "resultDetail;" },
       { text: "ปัญหาอุปสรรค", value: "obstacle" }
     ],
-    detail: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    mainProject: "ใหญ่มากๆๆๆ"
+    details: [
+      {
+        number: "{{}}",
+        strategicIssue: 1,
+        stategic: 1,
+        tactic: 1,
+        project:"1.ส่งเสริมให้นักศึกษามีภาวะผู้นำ และคิดวิเคราะห์",
+        measure: "ร้อยละนักศึกษาที่ได้ร่วมส่งลุงตู่",
+        targetPoint: "ร้อยละ95",
+        responsible: "วิศวกรรมคอมพิวเตอร์",
+        budgetPlan: 163470,
+        transfer: 0,
+        deposit: 0,
+        remainPlan: 163470,
+        approval: 107340,
+        expense: 8777,
+        remainApproval: 56130,
+        remainExpense: 154693,
+        comment: "",
+        result: "",
+        resultDetail: "",
+        obstacle: ""
+      }
+    ]
   })
 };
 </script>
