@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar color="#3E3C3C" dense dark>
+    <v-app-bar color="#AF281A" dense dark>
       <v-toolbar-title style="margin-top: 0px" class="navbar">ระบบติดตามการใช้จ่ายตามแผนงบประมาณ</v-toolbar-title>
       <v-spacer></v-spacer>
       <a style="color:white" class="mr-5 navbar">หน้าหลัก</a>
