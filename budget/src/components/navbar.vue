@@ -12,7 +12,7 @@
           <v-list>
             <v-list-item v-for="(item,index) in departmentselect" :key="index" :inactive="inactive">
               <v-list-item-content>
-                <v-list-item-title v-on:click="selectdepart(index)">{{ item }}</v-list-item-title>
+                <v-list-item-title v-on:click="selectdepart(index)"><a style="color:black;">{{ item }}</a></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -30,7 +30,6 @@
   .navbar{
     font-family: "Prompt", sans-serif;
   }
-
 </style>
 
 <script>
@@ -39,7 +38,7 @@ export default {
   name: "",
   message: "",
   data: () => ({
-    departmentselect: [
+    departmentselect: [ /* All Department variable */
       "วิศวกรรมโยธา",
       "วิศวกรรมไฟฟ้า",
       "วิศวกรรมการเกษตร",
@@ -47,7 +46,9 @@ export default {
       "วิศวกรรมเครื่องกล",
       "วิศวกรรมสิ่งแวดล้อม",
       "วิศวกรรมคอมพิวเตอร์"
-    ] /* All Department variable */
+    ],
+    inactive:false
+     
   }),
   methods:{
     selectdepart(index){
