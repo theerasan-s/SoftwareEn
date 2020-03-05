@@ -132,7 +132,6 @@
       dialog: false,
       mainProject: 'ส่งลุงตู่กลับบ้าน'
     }),
-
   }
 </script>
   

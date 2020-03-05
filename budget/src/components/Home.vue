@@ -51,7 +51,6 @@
           <v-card class="mx-auto">
             <v-row justify="center">
               <v-card-title class="headline">ดำเนินการสำเร็จ</v-card-title>
-
               <v-card-text style="text-align:center" class="texta">
                 <p>{{completedproject}}</p>
                 <!-- Show completed project -->
@@ -67,7 +66,9 @@
         <v-col cols="12" md="3">
           <label for="department" class="mr-5">สาขาวิชา :</label>
           <v-select
+            v-model="selectDepartment"
             :items="departmentselect"
+            @change="departmentSelector()"
             menu-props="auto"
             label="สาขาวิชา"
             hide-details
@@ -76,24 +77,25 @@
         </v-col>
         <v-col cols="12" md="3">
           <label for="year" class="mr-5">ปีการศึกษา :</label>
-          <v-menu>
-            <template v-slot:activator="{ on }">
-                <v-text-field v-on="on" class="my-2" items=""></v-text-field>
-              </template>
-              <v-date-picker v-model="date" type="month" width="290" class="mt-4" id="date"></v-date-picker>
-          </v-menu>
-          <!-- Change to pick from calendar -->
+          <v-select
+            v-model="selectYear"
+            :items="projectYear"
+            @change="yearSelector"
+            menu-props="auto"
+            label="ปีการศึกษา"
+            hide-details
+            single-line></v-select>
         </v-col>
         <v-col cols="12" md="3">
           <label for="project" class="mr-5">โครงการ :</label>
-          <v-overflow-btn
-            id="project"
-            class="my-2"
-            :items="mainpro"
+          <v-select
+            v-model="selectProject"
+            :items="projectList"
+            menu-props="auto"
             label="โครงการ"
-            target="#dropdown-example"
-            style="display:inline-block" 
-          ></v-overflow-btn>
+            hide-details
+            @change="loadSubProject"
+            single-line></v-select>
           <!-- Select main project -->
         </v-col>
       </v-row>
@@ -135,76 +137,161 @@ export default {
     remainbudget: 20 /* Remain Budget variable*/,
     allproject: 30 /* All Project variable*/,
     completedproject: 40 /* Completed Project variable */,
+    departmentData:[],//[{department:'coe',year:{2563:[{mainproject}]}}]
     mainpro:[],
-    departmentselect: [
+    departmentselect: [ /* All Department variable */
       "วิศวกรรมโยธา",
       "วิศวกรรมไฟฟ้า",
       "วิศวกรรมการเกษตร",
       "วิศวกรรมอุตสาหการ",
       "วิศวกรรมเครื่องกล",
       "วิศวกรรมสิ่งแวดล้อม",
+      "วิศวกรรมเคมี",
       "วิศวกรรมคอมพิวเตอร์"
-    ] /* All Department variable */,
-    miniproject: /* All miniproject in main project */ /* 2 variable: name,budget */ [
-      {
-        name: "Frozen Yogurt",
-        budget: 159
-      },
-      {
-        name: "Ice cream sandwich",
-        budget: 237
-      },
-      {
-        name: "Eclair",
-        budget: 262
-      },
-      {
-        name: "Cupcake",
-        budget: 305
-      },
-      {
-        name: "Gingerbread",
-        budget: 356
-      },
-      {
-        name: "Jelly bean",
-        budget: 375
-      },
-      {
-        name: "Lollipop",
-        budget: 392
-      },
-      {
-        name: "Honeycomb",
-        budget: 408
-      },
-      {
-        name: "Donut",
-        budget: 452
-      },
-      {
-        name: "KitKat",
-        budget: 518
-      }
-    ]
+    ],
+    miniproject:[],/* All miniproject in main project */ /* 2 variable: name,budget [name:,budget:}]*/ 
+    selectDepartment:'',
+    projectYear:[],
+    selectYear:'',
+    selectProject:'',
+    projectList:[],
+    listofProject:[]//[{}]
+    
   }),
-  async created() {
-    const ref = firebase.database().ref()
-    const data = await ref.once('value')
-    const projectData = data.val()
-    console.log(projectData)
-    
-    
+  methods: {
+    async loadData(){
+      const ref = firebase.database().ref('department')
+      const data = await ref.once('value')
+      const projectData = data.val()
+      for(let i in projectData){ // {department:coe,project}
+        const miniData = {department:i,year:{}}
+        for(let j in projectData[i].year){
+          const project = []
+          for(let k in projectData[i].year[j].mainProject){//projectData['coe'].year[2563]
+              let mainProject = {
+                name:projectData[i].year[j].mainProject[k].project,
+                budget:projectData[i].year[j].mainProject[k].budgetPlan
+                }
+              this.miniproject.push(mainProject)
+              project.push(projectData[i].year[j].mainProject[k])
+            }
+          miniData.year[j] = project
+      }
+      this.departmentData.push(miniData)
+    }
+    console.log(this.departmentData)
+    },
+    departmentSelector(){
+      //console.log(this.selectDepartment)
+      this.selectYear = undefined
+      this.selectProject = undefined
+      
+      if(this.selectDepartment == 'วิศวกรรมโยธา'){
+        this.loadYear('ce')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมไฟฟ้า')
+        this.loadYear('ee')
+      else if(this.selectDepartment == 'วิศวกรรมการเกษตร'){
+        this.loadYear('ae')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมอุตสาหการ'){
+        this.loadYear('ie')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมเครื่องกล'){
+        this.loadYear('me')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมสิ่งแวดล้อม'){
+        this.loadYear('envi')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมคอมพิวเตอร์'){
+        this.loadYear('coe')
+      }
+      else if(this.selectDepartment =='วิศวกรรมเคมี'){
+        this.loadYear('chem')
+      }
+      
+    },
+    loadYear(selectDepartment){
+      this.projectYear = []
+      //console.log(selectDepartment)
+      let selectedDepartment = this.departmentData.find(({department})=> department==selectDepartment)
+      //console.log(selectedDepartment)
+      let departmentYear = []
+      for(let i in selectedDepartment.year){
+        departmentYear.push(i)
+      }
+      console.log(departmentYear)
+      this.projectYear = departmentYear
+    },
+    yearSelector(){
+      if(this.selectDepartment == 'วิศวกรรมโยธา'){
+        this.loadProject('ce',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมไฟฟ้า')
+        this.loadProject('ee',this.selectYear)
+      else if(this.selectDepartment == 'วิศวกรรมการเกษตร'){
+        this.loadProject('ae',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมอุตสาหการ'){
+        this.loadProject('ie',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมเครื่องกล'){
+        this.loadProject('me',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมสิ่งแวดล้อม'){
+        this.loadProject('envi',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมคอมพิวเตอร์'){
+        this.loadProject('coe',this.selectYear)
+      }
+      else if(this.selectDepartment =='วิศวกรรมเคมี'){
+        this.loadProject('chem',this.selectYear)
+      }
 
-  }
-};
+    },
+
+    loadProject(selectDepartment,selectYear){
+      let departmentProject = this.departmentData.find(({department})=>department==selectDepartment)
+      let allProject
+      this.projectList = []
+      for(let i in departmentProject.year){
+        if(i == selectYear){
+          console.log('yes')
+          allProject = departmentProject.year[i]
+          break
+        }
+      }
+      this.listofProject = allProject
+      for(let i in allProject){
+        this.projectList.push(allProject[i].project)
+      }
+    },
+
+    loadSubProject(selectedProject){
+      const mainProject = this.listofProject.find(({project}) => project = selectedProject)
+      console.log(mainProject)
+      this.miniproject =[]
+      for(let i in mainProject.subProject){
+        let subProject = {
+          name:mainProject.subProject[i].project,
+          budget:mainProject.subProject[i].budgetPlan
+          }
+        this.miniproject.push(subProject)
+      }
+    }
+  },
+  async created() {
+    await this.loadData()
+    
+  },
+  
+}
 </script>
 
 <style>
 .texta {
   font-size: 23px; /* Card's fontsize */
 }
-
 .cardt {
   background-color: #d3d3d3;
 }

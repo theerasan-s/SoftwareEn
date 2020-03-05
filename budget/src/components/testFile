@@ -1,7 +1,8 @@
  mounted() {
-      const ref = firebase.database().ref('coe/year/2563/mainProject/-M1UVMyIE75yFo-Cxk3e/subProject')
+      console.log('test')
+      const ref = firebase.database().ref('department/ae/year/2564/mainProject/-M1f8CXNklWnEFqnY6uR/subProject')
       ref.push().set({
-        project: 'ส่งลุงตู่กลับบ้าน ภาค 2 ',
+        project: 'ส่งลุงตู่กลับบ้าน ภาค 19',
         strategicIssue: 1,
         stategic: 1,
         tactic: 1,
@@ -22,3 +23,29 @@
         obstacle: '',
       })
     }
+
+
+
+
+
+    const ref = firebase.database().ref('department')
+    const data = await ref.once('value')
+    const projectData = data.val()
+    console.log(projectData)
+    for(let i in projectData){ // {department:coe,project}
+      const miniData = {department:i}
+      for(let j in projectData[i].year){
+          const project = []
+          for(let k in projectData[i].year[j].mainProject){//projectData['coe'].year[2563]
+              let mainProject = {
+                name:projectData[i].year[j].mainProject[k].project,
+                budget:projectData[i].year[j].mainProject[k].budgetPlan
+                }
+              this.miniproject.push(mainProject)
+              project.push(projectData[i].year[j].mainProject[k])
+            }
+          miniData[j] = project
+      }
+      this.dapartmentData.push(miniData)
+    }
+    console.log(this.dapartmentData)
