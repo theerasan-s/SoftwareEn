@@ -10,9 +10,9 @@
             <a v-on="on" style="color:white" class="mr-3 navbar">รายละเอียดโครงการ</a>
           </template>
           <v-list>
-            <v-list-item v-for="(item) in departmentselect" :key="item">
+            <v-list-item v-for="(item,index) in departmentselect" :key="index" :inactive="inactive">
               <v-list-item-content>
-                <v-list-item-action>{{ item }}</v-list-item-action>
+                <v-list-item-title v-on:click="selectdepart(index)">{{ item }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -34,7 +34,10 @@
 </style>
 
 <script>
+import { messaging } from 'firebase';
 export default {
+  name: "",
+  message: "",
   data: () => ({
     departmentselect: [
       "วิศวกรรมโยธา",
@@ -45,6 +48,14 @@ export default {
       "วิศวกรรมสิ่งแวดล้อม",
       "วิศวกรรมคอมพิวเตอร์"
     ] /* All Department variable */
-  })
+  }),
+  methods:{
+    selectdepart(index){
+      /* Move to selected department */
+      /*console.log(this.departmentselect[index])
+      this.name = this.departmentselect[index]*/
+    }
+  }
+
 };
 </script>

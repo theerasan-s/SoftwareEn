@@ -80,7 +80,7 @@
             <template v-slot:activator="{ on }">
                 <v-text-field v-on="on" class="my-2" items=""></v-text-field>
               </template>
-              <v-date-picker v-model="date" type="month" width="290" class="mt-4"></v-date-picker>
+              <v-date-picker v-model="date" type="month" width="290" class="mt-4" id="date"></v-date-picker>
           </v-menu>
           <!-- Change to pick from calendar -->
         </v-col>
