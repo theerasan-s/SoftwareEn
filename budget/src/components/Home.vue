@@ -77,8 +77,8 @@
         <v-col cols="12" md="3">
           <label for="year" class="mr-5">ปีการศึกษา :</label>
           <v-menu>
-            <template v-slot:activator="{ on }">
-                <v-text-field v-on="on" class="my-2" items=""></v-text-field>
+            <template>
+                <v-select v-on="on" class="my-2" items=""></v-select>
               </template>
               <v-date-picker v-model="date" type="month" width="290" class="mt-4" id="date"></v-date-picker>
           </v-menu>
@@ -86,14 +86,14 @@
         </v-col>
         <v-col cols="12" md="3">
           <label for="project" class="mr-5">โครงการ :</label>
-          <v-overflow-btn
+          <v-select
             id="project"
             class="my-2"
             :items="mainpro"
             label="โครงการ"
             target="#dropdown-example"
             style="display:inline-block" 
-          ></v-overflow-btn>
+          ></v-select>
           <!-- Select main project -->
         </v-col>
       </v-row>
@@ -188,15 +188,15 @@ export default {
       }
     ]
   }),
-  async created() {
+  /*async created() {
     const ref = firebase.database().ref()
     const data = await ref.once('value')
     const projectData = data.val()
-    console.log(projectData)
+    
     
     
 
-  }
+  }*/
 };
 </script>
 
