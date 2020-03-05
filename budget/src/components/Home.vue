@@ -178,7 +178,6 @@ export default {
     listofProject:[]//[{}]
     
   }),
-<<<<<<< HEAD
   methods: {
     async loadData(){
       const ref = firebase.database().ref('department')
@@ -307,18 +306,6 @@ export default {
   },
   
 }
-=======
-  /*async created() {
-    const ref = firebase.database().ref()
-    const data = await ref.once('value')
-    const projectData = data.val()
-    
-    
-    
-
-  }*/
-};
->>>>>>> 7e9be73320753332c313efdcc6dba7a1e1155c59
 </script>
 
 <style>

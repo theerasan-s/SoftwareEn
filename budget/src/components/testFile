@@ -49,3 +49,166 @@
       this.dapartmentData.push(miniData)
     }
     console.log(this.dapartmentData)
+
+
+    switch(this.selectDepartment){
+        case 'วิศวกรรมโยธา':
+          this.loadYear('ce')
+        case 'วิศวกรรมไฟฟ้า':
+          this.loadYear('ee')
+        case 'วิศวกรรมการเกษตร':
+          this.loadYear('ae')
+        case 'วิศวกรรมอุตสาหการ':
+          this.loadYear('ie')
+        case 'วิศวกรรมเครื่องกล':
+          this.loadYear('me')
+        case 'วิศวกรรมสิ่งแวดล้อม':
+          this.loadYear('envi')
+        case 'วิศวกรรมคอมพิวเตอร์':
+          this.loadYear('coe')
+        case 'วิศวกรรมเคมี':
+          this.loadYear('chem')
+        
+      }
+
+
+
+       methods: {
+    async loadData(){
+      const ref = firebase.database().ref('department')
+      const data = await ref.once('value')
+      const projectData = data.val()
+      for(let i in projectData){ // {department:coe,project}
+        const miniData = {department:i,year:{}}
+        for(let j in projectData[i].year){
+          const project = []
+          for(let k in projectData[i].year[j].mainProject){//projectData['coe'].year[2563]
+              let mainProject = {
+                name:projectData[i].year[j].mainProject[k].project,
+                budget:projectData[i].year[j].mainProject[k].budgetPlan
+                }
+              this.miniproject.push(mainProject)
+              project.push(projectData[i].year[j].mainProject[k])
+            }
+          miniData.year[j] = project
+      }
+      this.departmentData.push(miniData)
+    }
+    console.log(this.departmentData)
+    },
+    departmentSelector(){
+      //console.log(this.selectDepartment)
+      this.selectYear = undefined
+      this.selectProject = undefined
+      
+      if(this.selectDepartment == 'วิศวกรรมโยธา'){
+        this.loadYear('ce')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมไฟฟ้า')
+        this.loadYear('ee')
+      else if(this.selectDepartment == 'วิศวกรรมการเกษตร'){
+        this.loadYear('ae')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมอุตสาหการ'){
+        this.loadYear('ie')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมเครื่องกล'){
+        this.loadYear('me')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมสิ่งแวดล้อม'){
+        this.loadYear('envi')
+      }
+      else if(this.selectDepartment == 'วิศวกรรมคอมพิวเตอร์'){
+        this.loadYear('coe')
+      }
+      else if(this.selectDepartment =='วิศวกรรมเคมี'){
+        this.loadYear('chem')
+      }
+      
+    },
+    loadYear(selectDepartment){
+      this.projectYear = []
+      //console.log(selectDepartment)
+      let selectedDepartment = this.departmentData.find(({department})=> department==selectDepartment)
+      //console.log(selectedDepartment)
+      let departmentYear = []
+      for(let i in selectedDepartment.year){
+        departmentYear.push(i)
+      }
+      console.log(departmentYear)
+      this.projectYear = departmentYear
+    },
+    yearSelector(){
+      if(this.selectDepartment == 'วิศวกรรมโยธา'){
+        this.loadProject('ce',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมไฟฟ้า')
+        this.loadProject('ee',this.selectYear)
+      else if(this.selectDepartment == 'วิศวกรรมการเกษตร'){
+        this.loadProject('ae',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมอุตสาหการ'){
+        this.loadProject('ie',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมเครื่องกล'){
+        this.loadProject('me',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมสิ่งแวดล้อม'){
+        this.loadProject('envi',this.selectYear)
+      }
+      else if(this.selectDepartment == 'วิศวกรรมคอมพิวเตอร์'){
+        this.loadProject('coe',this.selectYear)
+      }
+      else if(this.selectDepartment =='วิศวกรรมเคมี'){
+        this.loadProject('chem',this.selectYear)
+      }
+
+    },
+
+    loadProject(selectDepartment,selectYear){
+      let departmentProject = this.departmentData.find(({department})=>department==selectDepartment)
+      let allProject
+      this.projectList = []
+      for(let i in departmentProject.year){
+        if(i == selectYear){
+          console.log('yes')
+          allProject = departmentProject.year[i]
+          break
+        }
+      }
+      this.listofProject = allProject
+      for(let i in allProject){
+        this.projectList.push(allProject[i].project)
+      }
+    },
+
+    loadSubProject(selectedProject){
+      const mainProject = this.listofProject.find(({project}) => project = selectedProject)
+      console.log(mainProject)
+      this.miniproject =[]
+      for(let i in mainProject.subProject){
+        let subProject = {
+          name:mainProject.subProject[i].project,
+          budget:mainProject.subProject[i].budgetPlan
+          }
+        this.miniproject.push(subProject)
+      }
+    }
+  },
+  async created() {
+    await this.loadData()
+    
+  },
+  
+}
+=======
+  /*async created() {
+    const ref = firebase.database().ref()
+    const data = await ref.once('value')
+    const projectData = data.val()
+    
+    
+    
+
+  }*/
+};
