@@ -6,6 +6,7 @@ import home from '@/components/Home'
 import edit from '@/components/Edit'
 import login from '@/components/Login'
 import viewDetail from '@/components/viewDetail'
+import Addproject from '@/components/Addproject'
 
 
 Vue.use(Router)
@@ -44,6 +45,11 @@ export default new Router({
             name: viewDetail,
             component: viewDetail
           },
+          {
+            path: '/Addproject',
+            name: Addproject,
+            component: Addproject
+          }
           
 
     ]
