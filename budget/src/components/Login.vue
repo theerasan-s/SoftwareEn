@@ -57,7 +57,7 @@
                 <p class="errorshowclass">{{errorshow}}</p>
                 <v-btn color="#AF281A" dark
                  v-on:click="loginUserData()">Login</v-btn>
-                 <v-btn color="#AF2215" v-on:click="writeUserData(username,depart,email,password,role)">Writedata</v-btn>
+                 <v-btn color="#AF2215" v-on:click="writeUserData(username,depart,email,password,role)">Register</v-btn>
               </v-card-actions></div>
               
             </v-card>
@@ -88,6 +88,7 @@ import firebase from "firebase"
         const ths = this
         firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(()=>{
           console.log("Login Success")
+          window.location.href = "/home"
         }).catch(function(error) {
           ths.errorshow = error.message;
           
@@ -107,9 +108,11 @@ import firebase from "firebase"
           email: email,
           role: role});
           console.log("Register Success")
+          
 
         }).catch(function(error) {
           ths.errorshow = error.message;
+          
           
           console.log(ths.errorshow);
         
