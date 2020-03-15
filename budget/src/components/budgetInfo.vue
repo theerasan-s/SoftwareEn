@@ -14,8 +14,8 @@
         
       </v-toolbar>
     </template>
-    <template v-slot:item.action="{ item }">
-      <Edit/>
+    <template v-slot:item.action="{ on }">
+      <Edit v-on="on"/>
     
     </template>
     <template v-slot:no-data>
