@@ -103,8 +103,6 @@
                 <td class="test" style="width:1%;">{{ item.result }}</td>
                 <td class="test" style="width:1%;">{{ item.resultDetail }}</td>
                 <td class="test" style="width:1%;">{{ item.obstacle }}</td>
-               
-                
               </tr>
             </tbody>
           </template>
@@ -116,13 +114,12 @@
 </template>
 
 <script>
-import Edit from "./Edit.vue";
-import budgetInfo from "./budgetInfo.vue";
-import navbar from "./navbar";
+
+
 import firebase from "firebase";
 export default {
-  name: "home",
-  components: { navbar, budgetInfo },
+  name: "budgetInfo",
+  
   data: () => ({
     date: new Date().toISOString().substr(0, 7),
     allbudget: 10 /* All Budget variable*/,
