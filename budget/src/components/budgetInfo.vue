@@ -44,7 +44,7 @@
     </v-container>
     <v-container style="max-width: 1650px;">
       <v-card>
-        <v-simple-table fixed-header height="450px" w>
+        <v-simple-table fixed-header height="600px" w>
           <template v-slot:default>
             <thead>
               <tr>
@@ -103,6 +103,7 @@
                 <td class="test" style="width:1%;">{{ item.result }}</td>
                 <td class="test" style="width:1%;">{{ item.resultDetail }}</td>
                 <td class="test" style="width:1%;">{{ item.obstacle }}</td>
+                <td><Edit></Edit></td>
               </tr>
             </tbody>
           </template>
@@ -115,10 +116,11 @@
 
 <script>
 
-
+import Edit from "./Edit";
 import firebase from "firebase";
 export default {
   name: "budgetInfo",
+  components: { Edit },
   
   data: () => ({
     date: new Date().toISOString().substr(0, 7),
