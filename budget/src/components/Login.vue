@@ -35,7 +35,7 @@
               <div style="padding:16px;"><v-card-text>
                 <v-form>
                   <v-text-field
-                    label="Login"
+                    label="E-mail"
                     name="email"
                     id="email"
                     type="text"
@@ -57,7 +57,7 @@
                 <p class="errorshowclass">{{errorshow}}</p>
                 <v-btn color="#AF281A" dark
                  v-on:click="loginUserData()">Login</v-btn>
-                 <v-btn color="#AF2215" v-on:click="writeUserData(username,depart,email,password,role)">Register</v-btn>
+                 <v-btn color="#AF2215" v-on:click="movetoregister()">Register</v-btn>
               </v-card-actions></div>
               
             </v-card>
@@ -96,29 +96,16 @@ import firebase from "firebase"
         
   });
         
-        
-        
-      },
-      writeUserData(username,depart,email,password,role) {
-        firebase.auth().createUserWithEmailAndPassword(email,password).then(() =>{
-          firebase.database().ref('users/' + username).set({
-          username: username,
-          depart: depart,
-          uid: firebase.auth().currentUser.uid,
-          email: email,
-          role: role});
-          console.log("Register Success")
-          
+      },checklogin(){
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            window.location.href = "/home"
+            }
+});
 
-        }).catch(function(error) {
-          ths.errorshow = error.message;
-          
-          
-          console.log(ths.errorshow);
-        
-  });
-          
-}
+      },movetoregister(){
+        window.location.href = "/register"
+      }
     }
   }
 </script>

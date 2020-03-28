@@ -7,6 +7,7 @@ import edit from '@/components/Edit'
 import login from '@/components/Login'
 import viewDetail from '@/components/viewDetail'
 import Addproject from '@/components/Addproject'
+import register from '@/components/Register'
 
 
 Vue.use(Router)
@@ -49,6 +50,11 @@ export default new Router({
             path: '/Addproject',
             name: Addproject,
             component: Addproject
+          },
+          {
+            path: '/register',
+            name: register,
+            component: register
           }
           
 

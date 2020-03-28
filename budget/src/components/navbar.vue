@@ -18,7 +18,8 @@
           </v-list>
         </v-menu>
       </div>
-        <v-btn icon class="mt-0">
+      <a style="color:white" class="mr-5 navbar" v-on:click="logoutuser()">ออกจากระบบ</a>
+        <v-btn icon class="mt-0" v-on:click="logoutuser()">
           <v-icon>mdi-account-circle</v-icon>
           <!-- Manage Account -->
         </v-btn>
@@ -33,8 +34,10 @@
 </style>
 
 <script>
+import firebase from "firebase"
 import { messaging } from 'firebase';
 export default {
+  bett: "",
   name: "",
   message: "",
   data: () => ({
@@ -51,11 +54,15 @@ export default {
      
   }),
   methods:{
-    selectdepart(index){
-      /* Move to selected department */
-      /*console.log(this.departmentselect[index])
-      this.name = this.departmentselect[index]*/
-    }
+    logoutuser(){
+     const bett = firebase.auth().currentUser
+      console.log(bett);
+      firebase.auth().signOut().then(function() {
+        window.location.href = "/login"
+        }).catch(function(error) {
+  // An error happened.
+  });
+  }
   }
 
 };
