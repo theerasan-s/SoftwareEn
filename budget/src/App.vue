@@ -4,6 +4,15 @@
   </v-app>
 </template>
 
+
+<style>
+  span {
+    font-family: "Prompt", sans-serif;
+  }
+
+
+</style>
+
 <script>
 //import HelloWorld from './components/HelloWorld';
 

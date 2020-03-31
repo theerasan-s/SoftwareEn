@@ -1,6 +1,7 @@
 <template>
   <v-app>
-    <v-container>
+    <navbar></navbar>
+    <v-container class="ml-5">
       <v-row>
         <v-col cols="12" md="3">
           <label for="department" class="mr-5">สาขาวิชา :</label>
@@ -42,16 +43,17 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-container style="max-width: 1650px;">
+    
+    <v-container style="max-width: 1650px">
       <v-card>
-        <v-simple-table fixed-header height="600px" w>
+        <v-simple-table class="test">
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-center" style="width:11%;">
+                <th class="text-center">
                   โครงการ / กิจกรรมย่อย
                 </th>
-                <th class="text-center" style="width:1%;">ประเด็นยุทธศาสตร์</th>
+                <th class="text-center" style="width:1%">ประเด็นยุทธศาสตร์</th>
                 <th class="text-center" style="width:1%;">ยุทธศาสตร์</th>
                 <th class="text-center" style="width:1%;">กลยุทธ์</th>
                 <th class="text-center" style="width:1%;">ตัวชี้วัด</th>
@@ -77,7 +79,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in miniproject" :key="item.name">
+              <tr v-for="item in miniproject" :key="item.name" @click="detail=true">
                 <td class="test" style="width:11%;">{{ item.name }}</td>
                 <!-- Show miniproject's name -->
                 <td class="test" style="width:1%; text-align: center;">
@@ -109,7 +111,15 @@
           </template>
         </v-simple-table>
       </v-card>
+    
+    <v-dialog v-model="detail" max-width="600">
+      <v-row justify="center">
+        <detailCard></detailCard>
+      </v-row>
+    </v-dialog>
+    
     </v-container>
+
   
   </v-app>
 </template>
@@ -117,12 +127,15 @@
 <script>
 
 import Edit from "./Edit";
-import firebase from "firebase";
+import firebase from "firebase"
+import navbar from './navbar'
+import detailCard from './viewDetail'
 export default {
   name: "budgetInfo",
-  components: { Edit },
+  components: { Edit , navbar , detailCard},
   
   data: () => ({
+    detail:false,
     date: new Date().toISOString().substr(0, 7),
     allbudget: 10 /* All Budget variable*/,
     remainbudget: 20 /* Remain Budget variable*/,
@@ -315,5 +328,8 @@ export default {
 }
 td.test {
   text-align: left;
+}
+.test th {
+  width: 500px;
 }
 </style>
