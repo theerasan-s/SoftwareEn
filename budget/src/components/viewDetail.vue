@@ -9,7 +9,7 @@
             <span>โครงการใหญ่ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{mainProject}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -17,23 +17,23 @@
             <span>โครงการย่อย :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{project}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
           <v-col cols="12" md="3">
-            <span>จุดประสงค์ :</span>
+            <span>ประเด็นยุทธศาสตร์ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{strategicIssue}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
           <v-col cols="12" md="3">
-            <span>แผนยุทธศาสตร์ :</span>
+            <span>ยุทธศาสตร์ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{strategic}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -41,7 +41,7 @@
             <span>กลยุทธ์ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{tactic}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -49,7 +49,7 @@
             <span>ตัวชี้วัด :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{measure}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -57,7 +57,7 @@
             <span>ค่าเป้าหมายของตัวชี้วัด :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{targetPoint}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -65,7 +65,7 @@
             <span>ผู้รับผิดชอบ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{responsible}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -73,7 +73,7 @@
             <span>งบประมาณตามแผน :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{budgetPlan}} บาท</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -81,7 +81,7 @@
             <span>โอนออก :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{transfer}} บา </span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -89,7 +89,7 @@
             <span>โอนเข้า :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{deposit}} บาท</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -97,7 +97,7 @@
             <span>คงเหลือตามแผน :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{remainPlan}} บาท</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -105,7 +105,7 @@
             <span>ขออนุมัติใช้ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{approval}} บาท</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -113,7 +113,7 @@
             <span>เบิกจ่าย :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{expense}} บาท</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -121,7 +121,7 @@
             <span>คงเหลือจากหลักการ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{remainApproval}} บาท</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -129,7 +129,7 @@
             <span>คงเหลือจากเบิกจ่ายจริง :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{remainExpense}} บาท</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -137,7 +137,7 @@
             <span>หมายเหตุ :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{comment}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -145,7 +145,7 @@
             <span>ผลการดำเนินงาน :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{result}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -153,7 +153,7 @@
             <span>รายละเอียดผลการดำเนินงาน :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{resultDetail}}</span>
           </v-col>
         </v-row>
         <v-row justify="center">
@@ -161,7 +161,7 @@
             <span>ปัญหาอุปสรรค :</span>
           </v-col>
           <v-col cols="12" md="3">
-            <span>Tmanranger</span>
+            <span>{{obstacle}}</span>
           </v-col>
         </v-row>
       </v-container>
@@ -175,11 +175,34 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
       dialog: false
     };
-  }
+  },
+  computed: mapGetters({
+    mainProject: 'getMainProject',
+    project: 'getProject',
+    approval: 'getApproval',
+    budgetPlan: 'getBudgetPlan',
+    comment: 'getComment',
+    deposit: 'getDeposit',
+    expense: 'getExpense',
+    measure: 'getMeasure',
+    obstacle: 'getObstacle',
+    remainApproval: 'getRemainApproval',
+    remainExpense: 'getRemainExpense',
+    remainPlan: 'getRemainPlan',
+    responsible: 'getResponsible',
+    result: 'getResult',
+    resultDetail: 'getResultDetail',
+    strategic: 'getStrategic',
+    strategicIssue: 'getStrategicIssue',
+    tactic: 'getTactic',
+    targetPoint: 'getTargetPoint',
+    transfer: 'getTransfer'
+  })
 };
 </script>
