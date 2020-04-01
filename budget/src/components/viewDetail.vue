@@ -182,27 +182,29 @@ export default {
       dialog: false
     };
   },
-  computed: mapGetters({
-    mainProject: 'getMainProject',
-    project: 'getProject',
-    approval: 'getApproval',
-    budgetPlan: 'getBudgetPlan',
-    comment: 'getComment',
-    deposit: 'getDeposit',
-    expense: 'getExpense',
-    measure: 'getMeasure',
-    obstacle: 'getObstacle',
-    remainApproval: 'getRemainApproval',
-    remainExpense: 'getRemainExpense',
-    remainPlan: 'getRemainPlan',
-    responsible: 'getResponsible',
-    result: 'getResult',
-    resultDetail: 'getResultDetail',
-    strategic: 'getStrategic',
-    strategicIssue: 'getStrategicIssue',
-    tactic: 'getTactic',
-    targetPoint: 'getTargetPoint',
-    transfer: 'getTransfer'
-  })
+  computed: {
+     ...mapGetters({
+       mainProject: 'getMainProject',
+       project: 'getProject',
+       approval: 'getApproval',
+       budgetPlan: 'getBudgetPlan',
+       comment: 'getComment',
+       deposit: 'getDeposit',
+       expense: 'getExpense',
+       measure: 'getMeasure',
+       obstacle: 'getObstacle',
+       remainApproval: 'getRemainApproval',
+       remainExpense: 'getRemainExpense',
+       remainPlan: 'getRemainPlan',
+       responsible: 'getResponsible',
+       result: 'getResult',
+       resultDetail: 'getResultDetail',
+       strategic: 'getStrategic',
+       strategicIssue: 'getStrategicIssue',
+       tactic: 'getTactic',
+       targetPoint: 'getTargetPoint',
+       transfer: 'getTransfer',
+       })
+  },
 };
 </script>

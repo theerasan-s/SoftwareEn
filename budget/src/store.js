@@ -88,5 +88,29 @@ export default new Vuex.Store({
         getTransfer(state){
             return state.transfer
         }
+    },
+    mutations : {
+        setDetail(state,payload){
+            state.mainProject = payload.mainProject
+            state.project = payload.project
+            state.approval = payload.approval
+            state.budgetPlan = payload.budgetPlan
+            state.comment = payload.comment
+            state.deposit = payload.deposit
+            state.expense = payload.expense
+            state.measure = payload.measure
+            state.obstacle = payload.obstacle
+            state.remainApproval = payload.remainApproval
+            state.remainExpense = payload.remainExpense
+            state.remainPlan = payload.remainPlan
+            state.responsible = payload.responsible
+            state.result = payload.result
+            state.resultDetail = payload.resultDetail
+            state.strategic = payload.strategic
+            state.strategicIssue = payload.strategicIssue
+            state.tactic = payload.tactic
+            state.targetPoint = payload.targetPoint
+            state.transfer = payload.transfer
+        }
     }
 })

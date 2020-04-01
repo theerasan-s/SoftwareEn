@@ -27,33 +27,33 @@ export default new Router({
           },
           {
             path: '/budgetInfo',
-            name: budgetInfo,
+            name: 'budgetInfo',
             component: budgetInfo
           },
           {
             path: '/edit',
-            name: edit,
+            name: 'edit',
             component: edit
           },
           {
             path: '/login',
-            name: login,
+            name: 'login',
             component: login
           },
         
           {
             path: '/viewDetail',
-            name: viewDetail,
+            name: 'viewDetail',
             component: viewDetail
           },
           {
             path: '/Addproject',
-            name: Addproject,
+            name: 'Addproject',
             component: Addproject
           },
           {
             path: '/register',
-            name: register,
+            name: 'register',
             component: register
           }
           

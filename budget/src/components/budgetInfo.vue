@@ -45,6 +45,17 @@
     </v-container>
     
     <v-container style="max-width: 1650px">
+      <h2 class="mb-2">ข้อมูลโครงการใหญ่</h2>
+      <v-card>
+        <v-data-table
+          :headers="headers"
+          :items="displayMain"
+        ></v-data-table>
+      </v-card>
+    </v-container>
+  
+    <v-container style="max-width: 1650px">
+      <h2 class="mb-2">ข้อมูลโครงการย่อย</h2>
       <v-card>
         <v-simple-table class="test">
           <template v-slot:default>
@@ -53,59 +64,36 @@
                 <th class="text-center">
                   โครงการ / กิจกรรมย่อย
                 </th>
-                <th class="text-center" style="width:1%">ประเด็นยุทธศาสตร์</th>
-                <th class="text-center" style="width:1%;">ยุทธศาสตร์</th>
-                <th class="text-center" style="width:1%;">กลยุทธ์</th>
-                <th class="text-center" style="width:1%;">ตัวชี้วัด</th>
-                <th class="text-center" style="width:1%;">ค่าเป้าหมาย</th>
-                <th class="text-center" style="width:1%;">ผู้รับผิดชอบ</th>
-                <th class="text-center" style="width:1%;">งบประมาณ(ตามแผน)</th>
-                <th class="text-center" style="width:1%;">โอนออก</th>
-                <th class="text-center" style="width:1%;">โอนเข้า</th>
-                <th class="text-center" style="width:1%;">คงเหลือ(ตามแผน)</th>
-                <th class="text-center" style="width:1%;">ขออนุมัติใช้</th>
-                <th class="text-center" style="width:1%;">เบิกจ่าย</th>
-                <th class="text-center" style="width:1%;">คงเหลือจากหลักการ</th>
-                <th class="text-center" style="width:1%;">
+                <th class="text-center">ผู้รับผิดชอบ</th>
+                <th class="text-center">งบประมาณ(ตามแผน)</th>
+                <th class="text-center">โอนออก</th>
+                <th class="text-center">โอนเข้า</th>
+                <th class="text-center">คงเหลือ(ตามแผน)</th>
+                <th class="text-center">ขออนุมัติใช้</th>
+                <th class="text-center">เบิกจ่าย</th>
+                <th class="text-center">คงเหลือจากหลักการ</th>
+                <th class="text-center">
                   คงเหลือจากเบิกจ่ายจริง
                 </th>
-                <th class="text-center" style="width:1%;">หมายเหตุ</th>
-                <th class="text-center" style="width:1%;">ผลการดำเนินงาน</th>
-                <th class="text-center" style="width:1%;">
-                  รายละเอียดผลการดำเนินงาน
-                </th>
-                <th class="text-center" style="width:1%;">ปัญหาอุปสรรค</th>
-                <th class="text-center" style="width:1%;">Actions</th>
+                <th class="text-center">แก้ไข</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in miniproject" :key="item.name" @click="detail=true">
-                <td class="test" style="width:11%;">{{ item.name }}</td>
-                <!-- Show miniproject's name -->
-                <td class="test" style="width:1%; text-align: center;">
-                  {{ item.strategicIssue }}
-                </td>
+              <tr v-for="item in miniproject" :key="item.name" @click="setDetailCard(item)">
+                <td class="text-center">{{ item.name }}</td>
                 <!-- show miniproject's budget -->
-                <td class="test" style="width:1%;">{{ item.stategic }}</td>
-                <td class="test" style="width:1%;">{{ item.tactic }}</td>
-                <td class="test" style="width:1%;">{{ item.measure }}</td>
-                <td class="test" style="width:1%;">{{ item.targetPoint }}</td>
-                <td class="test" style="width:1%;">{{ item.responsible }}</td>
-                <td class="test" style="width:1%;">{{ item.budgetPlan }} บาท</td>
-                <td class="test" style="width:1%;">{{ item.transfer }}บาท</td>
-                <td class="test" style="width:1%;">{{ item.deposit }}บาท</td>
-                <td class="test" style="width:1%;">{{ item.remainPlan }}บาท</td>
-                <td class="test" style="width:1%;">{{ item.approval }}บาท</td>
-                <td class="test" style="width:1%;">{{ item.expense }}</td>
-                <td class="test" style="width:1%;">
+                <td class="text-center">{{ item.responsible }}</td>
+                <td class="text-center">{{ item.budgetPlan }}</td>
+                <td class="text-center">{{ item.transfer }}</td>
+                <td class="text-center">{{ item.deposit }}</td>
+                <td class="text-center">{{ item.remainPlan }}</td>
+                <td class="text-center">{{ item.approval }}</td>
+                <td class="text-center">{{ item.expense }}</td>
+                <td class="text-center">
                   {{ item.remainApproval }}
                 </td>
-                <td class="test" style="width:1%;">{{ item.remainExpense }}</td>
-                <td class="test" style="width:1%;">{{ item.comment }}</td>
-                <td class="test" style="width:1%;">{{ item.result }}</td>
-                <td class="test" style="width:1%;">{{ item.resultDetail }}</td>
-                <td class="test" style="width:1%;">{{ item.obstacle }}</td>
-                <td><Edit></Edit></td>
+                <td class="text-center">{{item.remainExpense }}</td>
+                <td class="text-center"><Edit></Edit></td>
               </tr>
             </tbody>
           </template>
@@ -133,9 +121,61 @@ import detailCard from './viewDetail'
 export default {
   name: "budgetInfo",
   components: { Edit , navbar , detailCard},
-  
   data: () => ({
     detail:false,
+    headers:[
+      {
+        text:'โครงการ',
+        align:'center',
+        value:'projectName'
+      },
+      {
+        text:'ผู้รับผิดชอบ',
+        align:'center',
+        value:'responsible'
+        },
+        {
+          text:'งบประมาณ(ตามแผน)',
+          align:'center',
+          value: 'budgetPlan'
+        },
+        {
+          text:'โอนออก',
+          align:'center',
+          value: 'transfer'
+        },
+        {
+          text:'โอนเข้า',
+          align:'center',
+          value: 'deposit'
+        },
+        {
+          text:'คงเหลือ(ตามแผน)',
+          align:'center',
+          value: 'remainPlan'
+        },
+        {
+          text:'ขออนุมัติใช้',
+          align:'center',
+          value: 'approval'
+        },
+        {
+          text:'เบิกจ่าย',
+          align:'center',
+          value: 'expense'
+        },
+        {
+          text:'คงเหลือจากหลักการ',
+          align:'center',
+          value: 'remainApproval'
+        },
+        {
+          text:'คงเหลือจากเบิกจ่ายจริง',
+          align:'center',
+          value: 'remainExpense'
+        },
+    ],
+    displayMain:[],
     date: new Date().toISOString().substr(0, 7),
     allbudget: 10 /* All Budget variable*/,
     remainbudget: 20 /* Remain Budget variable*/,
@@ -160,50 +200,32 @@ export default {
     selectYear: "",
     selectProject: "",
     projectList: [],
-    listofProject: [] //[{}]
+    listofProject: [], //[{}]
+    mainName:''
   }),
   methods: {
-    async loadData() {
-      const ref = firebase.database().ref("department");
-      const data = await ref.once("value");
-      const projectData = data.val();
-      for (let i in projectData) {
-        // {department:coe,project}
-        const miniData = { department: i, year: {} };
-        for (let j in projectData[i].year) {
-          const project = [];
-          for (let k in projectData[i].year[j].mainProject) {
-            //projectData['coe'].year[2563]
-            let mainProject = {
-              name: projectData[i].year[j].mainProject[k].project,
-              budget: projectData[i].year[j].mainProject[k].budgetPlan,
-              measure: projectData[i].year[j].mainProject[k].measure,
-              strategicIssue: projectData[i].year[j].mainProject[k].strategicIssue,
-              stategic: projectData[i].year[j].mainProject[k].stategic,
-              tactic: projectData[i].year[j].mainProject[k].tactic,
-              targetPoint: projectData[i].year[j].mainProject[k].targetPoint,
-              responsible: projectData[i].year[j].mainProject[k].responsible,
-              budgetPlan: projectData[i].year[j].mainProject[k].budgetPlan,
-              transfer: projectData[i].year[j].mainProject[k].transfer,
-              deposit: projectData[i].year[j].mainProject[k].deposit,
-              remainPlan: projectData[i].year[j].mainProject[k].remainPlan,
-              approval: projectData[i].year[j].mainProject[k].approval,
-              expense: projectData[i].year[j].mainProject[k].expense,
-              remainApproval: projectData[i].year[j].mainProject[k].remainApproval,
-              remainExpense: projectData[i].year[j].mainProject[k].remainExpense,
-              comment: projectData[i].year[j].mainProject[k].comment,
-              result: projectData[i].year[j].mainProject[k].result,
-              resultDetail: projectData[i].year[j].mainProject[k].resultDetail,
-              obstacle: projectData[i].year[j].mainProject[k].obstacle
-            };
-            this.miniproject.push(mainProject);
-            project.push(projectData[i].year[j].mainProject[k]);
-          }
-          miniData.year[j] = project;
-        }
-        this.departmentData.push(miniData);
+    async loadData(){
+      const ref = firebase.database().ref('department')
+      const data = await ref.once('value')
+      const projectData = data.val()
+      for(let i in projectData){
+        // {department:coe,project} 
+        const mainData = {department:i,year:{}}
+        for(let j in projectData[i].year){
+          const project = [] // mainProject data
+          for(let k in projectData[i].year[j].mainProject){//projectData['coe'].year[2563]
+              let mainProject = {
+                name:projectData[i].year[j].mainProject[k].project,
+                budget:projectData[i].year[j].mainProject[k].budgetPlan
+                }
+              project.push(projectData[i].year[j].mainProject[k])
+            }
+          mainData.year[j] = project
+          //console.log(miniData)
       }
-      console.log(this.departmentData);
+      this.departmentData.push(mainData)
+    }
+    console.log(this.departmentData)
     },
     departmentSelector() {
       //console.log(this.selectDepartment)
@@ -284,15 +306,30 @@ export default {
       const mainProject = this.listofProject.find(
         ({ project }) => (project = selectedProject)
       );
-      console.log(mainProject);
+      //console.log(mainProject);
+      //display mainProject Data in data-table
+      this.mainName = mainProject.project
+      this.displayMain = [{
+        projectName: mainProject.project,
+        responsible: mainProject.responsible,
+        budgetPlan: mainProject.budgetPlan,
+        transfer: mainProject.transfer,
+        deposit: mainProject.deposit,
+        remainPlan: mainProject.remainPlan,
+        approval: mainProject.approval,
+        expense: mainProject.expense,
+        remainApproval: mainProject.remainApproval,
+        remainExpense: mainProject.remainExpense
+      }]
+      //
       this.miniproject = [];
       for (let i in mainProject.subProject) {
         let subProject = {
           name: mainProject.subProject[i].project,
-          budget: mainProject.subProject[i].budgetPlan,
+          //budget: mainProject.subProject[i].budgetPlan,
           measure: mainProject.subProject[i].measure,
           strategicIssue: mainProject.subProject[i].strategicIssue,
-          stategic: mainProject.subProject[i].stategic,
+          strategic: mainProject.subProject[i].stategic,
           tactic: mainProject.subProject[i].tactic,
           targetPoint: mainProject.subProject[i].targetPoint,
           responsible: mainProject.subProject[i].responsible,
@@ -311,6 +348,32 @@ export default {
         };
         this.miniproject.push(subProject);
       }
+    },
+    setDetailCard(item){
+      this.$store.commit({
+        type: 'setDetail',
+        mainProject: this.mainName,
+        project: item.name,
+        budgetPlan: item.budgetPlan,
+        measure: item.measure,
+        strategicIssue: item.strategicIssue,
+        strategic: item.strategic,
+        tactic: item.tactic,
+        targetPoint: item.targetPoint,
+        responsible: item.responsible,
+        transfer: item.transfer,
+        deposit: item.deposit,
+        remainPlan: item.remainPlan,
+        approval: item.approval,
+        expense: item.expense,
+        remainApproval: item.remainApproval,
+        remainExpense: item.remainExpense,
+        comment: item.comment,
+        result: item.result,
+        resultDetail: item.resultDetail,
+        obstacle: item.obstacle
+      })
+      this.detail = true
     }
   },
   async created() {
@@ -326,10 +389,5 @@ export default {
 .cardt {
   background-color: #d3d3d3;
 }
-td.test {
-  text-align: left;
-}
-.test th {
-  width: 500px;
-}
+
 </style>

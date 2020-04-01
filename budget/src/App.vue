@@ -6,7 +6,7 @@
 
 
 <style>
-  span {
+  h2, span {
     font-family: "Prompt", sans-serif;
   }
 

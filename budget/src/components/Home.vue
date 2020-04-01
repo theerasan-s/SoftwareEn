@@ -163,21 +163,22 @@ export default {
       const ref = firebase.database().ref('department')
       const data = await ref.once('value')
       const projectData = data.val()
-      for(let i in projectData){ // {department:coe,project}
-        const miniData = {department:i,year:{}}
+      for(let i in projectData){
+        // {department:coe,project} 
+        const mainData = {department:i,year:{}}
         for(let j in projectData[i].year){
-          const project = []
+          const project = [] // mainProject data
           for(let k in projectData[i].year[j].mainProject){//projectData['coe'].year[2563]
               let mainProject = {
                 name:projectData[i].year[j].mainProject[k].project,
                 budget:projectData[i].year[j].mainProject[k].budgetPlan
                 }
-              this.miniproject.push(mainProject)
               project.push(projectData[i].year[j].mainProject[k])
             }
-          miniData.year[j] = project
+          mainData.year[j] = project
+          //console.log(miniData)
       }
-      this.departmentData.push(miniData)
+      this.departmentData.push(mainData)
     }
     console.log(this.departmentData)
     },
