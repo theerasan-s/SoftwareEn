@@ -19,10 +19,6 @@
         </v-menu>
       </div>
       <a style="color:white" class="mr-5 navbar" v-on:click="logoutuser()">ออกจากระบบ</a>
-        <v-btn icon class="mt-0" v-on:click="logoutuser()">
-          <v-icon>mdi-account-circle</v-icon>
-          <!-- Manage Account -->
-        </v-btn>
     </v-app-bar>
   </div>
 </template>
