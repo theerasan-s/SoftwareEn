@@ -33,6 +33,9 @@
 import firebase from "firebase"
 import { messaging } from 'firebase';
 export default {
+  created(){
+    //this.checklogin() ถ้าทำเสร็จแล้ว ฝากเปิดให้มันใช้งานด้วย
+  },
   bett: "",
   name: "",
   message: "",
@@ -58,8 +61,14 @@ export default {
         }).catch(function(error) {
   // An error happened.
   });
-  }
-  }
+  },checklogin(){
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (!user) {
+            window.location.href = "/login"
+            }
+});
 
+      }
+  }
 };
 </script>
