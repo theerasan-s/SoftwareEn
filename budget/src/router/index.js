@@ -8,6 +8,7 @@ import login from '@/components/Login'
 import viewDetail from '@/components/viewDetail'
 import Addproject from '@/components/Addproject'
 import register from '@/components/Register'
+import admin from '@/components/admin'
 
 
 Vue.use(Router)
@@ -55,6 +56,11 @@ export default new Router({
             path: '/register',
             name: 'register',
             component: register
+          },
+          {
+            path: '/admin',
+            name: 'admin',
+            component: admin
           }
           
 
