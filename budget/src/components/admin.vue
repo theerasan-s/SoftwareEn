@@ -23,11 +23,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in listusername" :key="item.name">
-                <td class="text-center">{{ item.name }}</td>
+              <tr v-for="item in listusername" :key="item.firstname">
+                <td class="text-center">{{ item.firstname +" "+ item.lastname }}</td>
                 <!-- Show miniproject's name -->
-                <td class="text-center">แก้ไข</td>
-                <td class="text-center">ลบ</td>
+                <td class="text-center">{{item.role}}</td>
+                <td class="text-center"><v-btn>แก้ไข</v-btn><v-btn>ลบ</v-btn></td>
+                
                 <!-- show miniproject's budget -->
 
               </tr>
@@ -49,12 +50,16 @@ export default {
   components: {navbar},
   created() {
     //this.checklogin();
+    this.getalluser();
   },
   data() {
     return {
+      name: "",
       username: "",
       role: "",
-      listusername: []
+      listusername: [],
+      firstname: "",
+      lastname: ""
     };
   },
   props: {
@@ -68,13 +73,29 @@ export default {
         }
       });
     },*/
-    getalluser(){
-      var ref = firebase.database().ref("users").once("value")
-      var user = ref.val()
-      for (i in user){
-        this.listusername.push(i.username)
+   async getalluser(){
+     const ths = this;
+      const ref = firebase.database().ref('users')
+      const data = await ref.once('value')
+      const userdata = data.val()
+      for (let i in userdata){
+        firebase.database()
+        .ref('users/'+i)
+        .once('value')
+        .then(function(snapshot){
+          let aname = {
+            firstname: snapshot.val().firstname,
+            lastname: snapshot.val().lastname,
+            role: snapshot.val().role
+          }
+          ths.listusername.push(aname)
+        })
+        
+        console.log(i)
+        
+        
       }
-      console.log(listusername)
+      
     },
     movetoregister() {
       window.location.href = "/register";

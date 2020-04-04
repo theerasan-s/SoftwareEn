@@ -34,7 +34,7 @@
                 <v-card-actions>
                   <v-spacer />
                   <p class="errorshowclass">{{errorshow}}</p>
-                  <v-btn color="#AF281A" dark v-on:click="loginUserData()">Login</v-btn>
+                  <v-btn color="#AF281A" dark @keyup.enter="loginUserData()" v-on:click="loginUserData()">Login</v-btn>
                 </v-card-actions>
               </div>
             </v-card>

@@ -113,7 +113,7 @@ export default {
               email: email,
               role: role
             });
-          window.location.href = "/home";
+          window.location.href = "/admin";
           console.log("Register Success");
         })
         .catch(function(error) {
