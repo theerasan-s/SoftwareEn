@@ -3,7 +3,7 @@
     <v-app-bar color="#AF281A" dense dark>
       <v-toolbar-title style="margin-top: 0px" class="navbar">ระบบติดตามการใช้จ่ายตามแผนงบประมาณ</v-toolbar-title>
       <v-spacer></v-spacer>
-      <a style="color:white" class="mr-5 navbar">หน้าหลัก</a>
+      <a style="color:white" class="mr-5 navbar" v-on:click="movetohome()">หน้าหลัก</a>
         <div class="text-center">
         <v-menu offset-y>
           <template v-slot:activator="{ on }">
@@ -52,7 +52,9 @@ export default {
     inactive:false
      
   }),
-  methods:{
+  methods:{movetohome(){
+    window.location.href = "/home"
+  },
     logoutuser(){
      const bett = firebase.auth().currentUser
       console.log(bett);
@@ -61,14 +63,14 @@ export default {
         }).catch(function(error) {
   // An error happened.
   });
-  },checklogin(){
+  }/*,checklogin(){
         firebase.auth().onAuthStateChanged(function(user) {
           if (!user) {
             window.location.href = "/login"
             }
 });
 
-      }
+      }*/
   }
 };
 </script>
