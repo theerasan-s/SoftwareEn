@@ -25,7 +25,11 @@ export default new Vuex.Store({
         strategicIssue:'no',
         tactic:'tee',
         targetPoint:25,
-        transfer:0      
+        transfer:0,
+        //////////////////////////////////////////////////////////////////////
+        addProjectChoice:false, // true = โปรเจคหลัก , false = โปรเจคย่อย  
+        projectData:null,   //allProjectData
+        loading:false
     },
     getters: {
         getMainProject(state){
@@ -87,7 +91,17 @@ export default new Vuex.Store({
         },
         getTransfer(state){
             return state.transfer
+        },
+        getAddProjectChoice(state){
+            return state.addProjectChoice
+        },
+        getProjectData(state){
+            return state.projectData
+        },
+        getLoading(state){
+            return state.loading
         }
+           
     },
     mutations : {
         setDetail(state,payload){
@@ -111,6 +125,15 @@ export default new Vuex.Store({
             state.tactic = payload.tactic
             state.targetPoint = payload.targetPoint
             state.transfer = payload.transfer
+        },
+        setAddProjectChoice(state,payload){
+            state.addProjectChoice = payload.choice
+        },
+        setProjectData(state,payload){
+            state.projectData = payload.projectData
+        },
+        setLoading(state,payload){
+            state.loading = payload.loading
         }
     }
 })

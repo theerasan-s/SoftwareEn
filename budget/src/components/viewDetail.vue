@@ -1,169 +1,91 @@
 <template>
-    <v-card width="600px">
-      <v-container class="text-center">
+    <v-card width="450px">
+      <v-container class="mx-auto">
         <v-row justify="center">
           <v-card-title class="title cardHeader mt-4 mb-4">รายละเอียดโครงการ</v-card-title>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>โครงการใหญ่ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-container class="mx-10">
+        <v-row class="mt-5">
+            <span class="mr-5">โครงการใหญ่ :</span>
             <span>{{mainProject}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>โครงการย่อย :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">โครงการย่อย :</span>
             <span>{{project}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>ประเด็นยุทธศาสตร์ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span  class="mr-5">ประเด็นยุทธศาสตร์ :</span>
             <span>{{strategicIssue}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>ยุทธศาสตร์ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">ยุทธศาสตร์ :</span>
             <span>{{strategic}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>กลยุทธ์ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">กลยุทธ์ :</span>
             <span>{{tactic}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>ตัวชี้วัด :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">ตัวชี้วัด :</span>
             <span>{{measure}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="4">
-            <span>ค่าเป้าหมายของตัวชี้วัด :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">ค่าเป้าหมายของตัวชี้วัด :</span>
             <span>{{targetPoint}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>ผู้รับผิดชอบ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">ผู้รับผิดชอบ :</span>
             <span>{{responsible}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="4">
-            <span>งบประมาณตามแผน :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">งบประมาณตามแผน :</span>
             <span>{{budgetPlan}} บาท</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>โอนออก :</span>
-          </v-col>
-          <v-col cols="12" md="3">
-            <span>{{transfer}} บา </span>
-          </v-col>
+        <v-row class="mt-5">
+            <span class="mr-5">โอนออก :</span>
+            <span>{{transfer}} บาท </span>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>โอนเข้า :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">โอนเข้า :</span>
             <span>{{deposit}} บาท</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>คงเหลือตามแผน :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">คงเหลือตามแผน :</span>
             <span>{{remainPlan}} บาท</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>ขออนุมัติใช้ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">ขออนุมัติใช้ :</span>
             <span>{{approval}} บาท</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>เบิกจ่าย :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5"> 
+            <span class="mr-5">เบิกจ่าย :</span>
             <span>{{expense}} บาท</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="4">
-            <span>คงเหลือจากหลักการ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">คงเหลือจากหลักการ :</span>
             <span>{{remainApproval}} บาท</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="4">
-            <span>คงเหลือจากเบิกจ่ายจริง :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">คงเหลือจากเบิกจ่ายจริง :</span>
             <span>{{remainExpense}} บาท</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>หมายเหตุ :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">หมายเหตุ :</span>
             <span>{{comment}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="4">
-            <span>ผลการดำเนินงาน :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">ผลการดำเนินงาน :</span>
             <span>{{result}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="5">
-            <span>รายละเอียดผลการดำเนินงาน :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">รายละเอียดผลการดำเนินงาน :</span>
             <span>{{resultDetail}}</span>
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols="12" md="3">
-            <span>ปัญหาอุปสรรค :</span>
-          </v-col>
-          <v-col cols="12" md="3">
+        <v-row class="mt-5">
+            <span class="mr-5">ปัญหาอุปสรรค :</span>
             <span>{{obstacle}}</span>
-          </v-col>
         </v-row>
+        </v-container>
       </v-container>
     </v-card>
 </template>

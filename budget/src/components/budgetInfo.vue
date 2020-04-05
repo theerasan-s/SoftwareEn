@@ -41,6 +41,9 @@
           ></v-select>
           <!-- Select main project -->
         </v-col>
+        <v-col cols="12" md="2" class="mt-9">
+          <v-btn color="success" @click="selectChoice = true">เพิ่มโครงการ</v-btn>
+        </v-col>
       </v-row>
     </v-container>
     
@@ -100,15 +103,47 @@
         </v-simple-table>
       </v-card>
     
-    <v-dialog v-model="detail" max-width="600">
+    <v-dialog v-model="detail" max-width="450px">
       <v-row justify="center">
         <detailCard></detailCard>
       </v-row>
     </v-dialog>
-    
     </v-container>
 
-  
+    <v-row justify="center">
+      <v-dialog v-model="selectChoice" max-width="600px">
+        <v-card>
+          <v-container class="text-center">
+            <h2>เลือกประเภทโครงการ</h2>
+            <v-row justify="center">
+              <v-col cols="12" md="4">
+                <v-btn x-large color="warning" @click="projectChoice(true)">โครงการหลัก</v-btn>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-btn x-large color="success" @click="projectChoice(false)">โครงการย่อย</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </v-dialog>
+    </v-row>
+
+    <v-row justify="center">
+      <v-dialog v-model="addProject" max-width="600px">
+        <addProject/>
+      </v-dialog>
+    </v-row>
+
+    <v-row justify="center">
+          <v-dialog justify="center" v-model="loading" max-width="400" persistent>
+            <v-card>
+              <v-card-title class="headline">รอสักครู่</v-card-title>
+              <div class="text-center" style="padding-top: 25px; padding-bottom:50px; ">
+                <v-progress-circular indeterminate color="green"></v-progress-circular>
+              </div>
+            </v-card>
+          </v-dialog>
+        </v-row>
   </v-app>
 </template>
 
@@ -118,11 +153,15 @@ import Edit from "./Edit";
 import firebase from "firebase"
 import navbar from './navbar'
 import detailCard from './viewDetail'
+import addProject from './Addproject'
+import { mapGetters } from 'vuex';
 export default {
   name: "budgetInfo",
-  components: { Edit , navbar , detailCard},
+  components: { Edit , navbar , detailCard , addProject},
   data: () => ({
+    addProject:false,
     detail:false,
+    selectChoice:false,
     headers:[
       {
         text:'โครงการ',
@@ -214,18 +253,43 @@ export default {
         for(let j in projectData[i].year){
           const project = [] // mainProject data
           for(let k in projectData[i].year[j].mainProject){//projectData['coe'].year[2563]
+              //console.log(projectData[i].year[j].mainProject[k])
+              let dbProject = projectData[i].year[j].mainProject[k]
               let mainProject = {
-                name:projectData[i].year[j].mainProject[k].project,
-                budget:projectData[i].year[j].mainProject[k].budgetPlan
-                }
-              project.push(projectData[i].year[j].mainProject[k])
+                project: dbProject.project,
+                strategicIssue: dbProject.strategicIssue,
+                strategic: dbProject.stategic,
+                tactic: dbProject.tactic,
+                measure: dbProject.measure,
+                targetPoint: dbProject.targetPoint,
+                responsible: dbProject.responsible,
+                budget: dbProject.budgetPlan,
+                transfer: dbProject.transfer,
+                deposit: dbProject.deposit,
+                remainPlan: dbProject.remainPlan,
+                approval: dbProject.approval,
+                expense: dbProject.expense,
+                remainApproval:dbProject.remainApproval,
+                remainExpense: dbProject.remainExpense,
+                comment: dbProject.comment,
+                result: dbProject.result,
+                resultDetail: dbProject.resultDetail,
+                obstacle: dbProject.obstacle,
+                subProject: dbProject.subProject,
+                key: k
+              }
+              project.push(mainProject)
             }
           mainData.year[j] = project
           //console.log(miniData)
       }
       this.departmentData.push(mainData)
     }
-    console.log(this.departmentData)
+    await this.$store.commit({
+        type:'setProjectData',
+        projectData: this.departmentData
+      })
+    //console.log(this.departmentData)
     },
     departmentSelector() {
       //console.log(this.selectDepartment)
@@ -344,7 +408,7 @@ export default {
           comment: mainProject.subProject[i].comment,
           result: mainProject.subProject[i].result,
           resultDetail: mainProject.subProject[i].resultDetail,
-          obstacle: mainProject.subProject[i].obstacle
+          obstacle: mainProject.subProject[i].obstacle,
         };
         this.miniproject.push(subProject);
       }
@@ -374,12 +438,39 @@ export default {
         obstacle: item.obstacle
       })
       this.detail = true
+    },
+    projectChoice(decision){
+      this.addProject = true
+      if(decision){
+        this.$store.commit({
+          type:'setAddProjectChoice',
+          choice: true
+        })
+      }
+      else{
+        this.$store.commit({
+          type:'setAddProjectChoice',
+          choice: false
+        })
+      }
     }
   },
+  
+  computed:{
+    ...mapGetters({
+      loading: 'getLoading'
+    })
+  },
+  
   async created() {
+    const vm = this
     await this.loadData();
-  }
-};
+    firebase.database().ref('department').on('value',function(){
+      vm.loadData
+      })
+    }
+  
+}
 </script>
 
 <style>
