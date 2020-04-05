@@ -50,7 +50,7 @@
                   <p class="errorshowclass">{{errorshow}}</p>
                   <v-btn
                     color="#AF2215"
-                    v-on:click="writeUserData(firstname,lastname,depart,email,password,role)"
+                    v-on:click="editUserData(firstname,lastname,depart,role)"
                   >Register</v-btn>
                 </v-card-actions>
               </div>
@@ -63,10 +63,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import admin from "./admin"
 import firebase from "firebase";
 export default {
     created(){
-        this.getdetailuser(this.username)
+        this.getdetailuser()
     },
   data() {
     return {
@@ -74,20 +76,21 @@ export default {
       lastname: "",
       role: "",
       depart: "",
-      username: "kolila",
       errorshow: ""
     };
   },
-  props: {
-    source: String
+  computed: {
+    ...mapGetters({
+      username: 'getUserdataname',
+    })
   },
   methods: {
     getdetailuser() {
       const ths = this;
-      console.log(ths.username)
+      console.log(username)
       firebase
         .database()
-        .ref("users/" + ths.username)
+        .ref("users/" + username)
         .once("value")
         .then(function(snapshot) {
             ths.firstname = snapshot.val().firstname
@@ -103,7 +106,8 @@ export default {
               lastname: lastname,
               depart: depart,
               role: role
-            });
+            })
+            window.location.href = "/admin"
     }
   }
 };

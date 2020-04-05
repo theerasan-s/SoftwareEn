@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <navbar></navbar>
+    <edituser :username="username"></edituser>
     <v-content>
       <v-container>
         <v-row align="start" justify="center">
@@ -25,11 +26,8 @@
             <tbody>
               <tr v-for="item in listusername" :key="item.name">
                 <td class="text-center">{{ item.firstname +" "+ item.lastname }}</td>
-                <!-- Show miniproject's name -->
                 <td class="text-center">{{item.role}}</td>
                 <td class="text-center"><v-btn v-on:click="edituser(item.name)">แก้ไข</v-btn><v-btn v-on:click="removeuser(item.name)">ลบ</v-btn></td>
-                
-                <!-- show miniproject's budget -->
 
               </tr>
             </tbody>
@@ -44,10 +42,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import edituser from "./edituser"
 import navbar from "./navbar"
 import firebase from "firebase";
 export default {
-  components: {navbar},
+  components:{navbar},
   created() {
     //this.checklogin();
     this.getalluser();
@@ -62,12 +62,14 @@ export default {
       lastname: ""
     };
   },
-  props: {
-    source: String
-  },
   methods: {
     edituser(name){
-      
+      this.$store.commit({
+        type: "setUserdataname",
+        username: name
+      })
+      window.location.href = "/edituser";
+
     },
     removeuser(name){
       firebase.database().ref('users/'+name).remove()
