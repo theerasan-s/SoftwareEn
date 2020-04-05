@@ -30,7 +30,7 @@ export default new Vuex.Store({
         addProjectChoice:false, // true = โปรเจคหลัก , false = โปรเจคย่อย  
         projectData:null,   //allProjectData
         loading:false,
-        username:"ooo"
+        username:null
     },
     getters: {
         getMainProject(state){
