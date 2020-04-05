@@ -53,13 +53,13 @@ export default {
      
   }),
   methods:{movetohome(){
-    window.location.href = "/home"
+    this.$router.push({ name: 'home' });
   },
     logoutuser(){
      const bett = firebase.auth().currentUser
       console.log(bett);
       firebase.auth().signOut().then(function() {
-        window.location.href = "/login"
+        this.$router.push({ name: 'login' });
         }).catch(function(error) {
   // An error happened.
   });
