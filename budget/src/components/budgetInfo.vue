@@ -249,7 +249,7 @@ export default {
     selectProject: "",
     projectList: [],
     listofProject: [], //[{}]
-    mainName:''
+    mainName:'',
   }),
   methods: {
     editProject(item){
@@ -390,6 +390,7 @@ export default {
         ({ project }) => (project == selectedProject)
       );
       console.log(mainProject);
+      this.key = mainProject.key
       //display mainProject Data in data-table
       this.mainName = mainProject.project
       console.log(mainProject.budgetPlan)

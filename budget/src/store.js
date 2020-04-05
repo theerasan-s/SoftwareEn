@@ -100,8 +100,7 @@ export default new Vuex.Store({
         },
         getLoading(state){
             return state.loading
-        },
-           
+        }, 
     },
     mutations : {
         setDetail(state,payload){
