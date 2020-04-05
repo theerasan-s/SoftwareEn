@@ -40,6 +40,7 @@
                       <v-radio label="วิศวกรรมคอมพิวเตอร์" value="coe"></v-radio>
                     </v-radio-group>
                     <v-radio-group label="หน้าที่" v-model="role">
+                      <v-radio label="Admin" value="Admin"></v-radio>
                       <v-radio label="ผู้บริหาร" value="Manager"></v-radio>
                       <v-radio label="ผู้ดูแล" value="Keeper"></v-radio>
                     </v-radio-group>
@@ -63,13 +64,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import admin from "./admin"
+import { mapGetters } from "vuex";
+import admin from "./admin";
 import firebase from "firebase";
 export default {
-    created(){
-        this.getdetailuser()
-    },
+  created() {
+    this.getdetailuser();
+  },
   data() {
     return {
       firstname: "",
@@ -81,33 +82,36 @@ export default {
   },
   computed: {
     ...mapGetters({
-      username: 'getUserdataname',
+      username: "getUserdataname"
     })
   },
   methods: {
     getdetailuser() {
       const ths = this;
-      console.log(this.username)
+      console.log(this.username);
       firebase
         .database()
         .ref("users/" + this.username)
         .once("value")
         .then(function(snapshot) {
-            ths.firstname = snapshot.val().firstname
-            ths.lastname = snapshot.val().lastname
-            ths.depart = snapshot.val().depart
-            ths.role = snapshot.val().role
+          ths.firstname = snapshot.val().firstname;
+          ths.lastname = snapshot.val().lastname;
+          ths.depart = snapshot.val().depart;
+          ths.role = snapshot.val().role;
         });
     },
     editUserData(firstname, lastname, depart, role) {
       const ths = this;
-      firebase.database().ref("users/" + ths.username).update({
-              firstname: firstname,
-              lastname: lastname,
-              depart: depart,
-              role: role
-            })
-            this.$router.push({ name: 'admin' });
+      firebase
+        .database()
+        .ref("users/" + ths.username)
+        .update({
+          firstname: firstname,
+          lastname: lastname,
+          depart: depart,
+          role: role
+        });
+      window.location.href = "/admin";
     }
   }
 };

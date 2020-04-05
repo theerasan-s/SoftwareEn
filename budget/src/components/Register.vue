@@ -40,6 +40,7 @@
                       <v-radio label="วิศวกรรมคอมพิวเตอร์" value="coe"></v-radio>
                     </v-radio-group>
                     <v-radio-group label="หน้าที่" v-model="role">
+                      <v-radio label="Admin" value="Admin"></v-radio>
                       <v-radio label="ผู้บริหาร" value="Manager"></v-radio>
                       <v-radio label="ผู้ดูแล" value="Keeper"></v-radio>
                     </v-radio-group>

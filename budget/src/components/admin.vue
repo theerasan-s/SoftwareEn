@@ -70,7 +70,6 @@ export default {
         type: "setUserdataname",
         username: name,
       });
-      console.log(this.username);
       this.$router.push({ name: 'edituser' });
     },
     removeuser(name) {
@@ -108,7 +107,7 @@ export default {
       }
     },
     movetoregister() {
-      this.$router.push({ name: 'register' });
+      window.location.href = "/register";
     }
   }
 };

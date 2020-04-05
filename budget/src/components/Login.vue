@@ -46,10 +46,10 @@
 </template>
 
 <script>
+import admin from "./admin";
 import firebase from "firebase";
 export default {
   created() {
-    this.checklogin();
   },
   data() {
     return {
@@ -78,10 +78,10 @@ export default {
             .once("value")
             .then(function(snapshot) {
               if (snapshot.val().role == "Admin"){
-                this.$router.push({ name: 'admin' });
+                window.location.href = "/admin";
               }
               else{
-                this.$router.push({ name: 'home' });
+                window.location.href = "/home";
               }
             });
         })
