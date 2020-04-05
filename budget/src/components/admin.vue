@@ -23,11 +23,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in listusername" :key="item.firstname">
+              <tr v-for="item in listusername" :key="item.name">
                 <td class="text-center">{{ item.firstname +" "+ item.lastname }}</td>
                 <!-- Show miniproject's name -->
                 <td class="text-center">{{item.role}}</td>
-                <td class="text-center"><v-btn>แก้ไข</v-btn><v-btn>ลบ</v-btn></td>
+                <td class="text-center"><v-btn v-on:click="edituser(item.name)">แก้ไข</v-btn><v-btn v-on:click="removeuser(item.name)">ลบ</v-btn></td>
                 
                 <!-- show miniproject's budget -->
 
@@ -66,6 +66,12 @@ export default {
     source: String
   },
   methods: {
+    edituser(name){
+      
+    },
+    removeuser(name){
+      firebase.database().ref('users/'+name).remove()
+    },
     /*checklogin() {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -86,12 +92,12 @@ export default {
           let aname = {
             firstname: snapshot.val().firstname,
             lastname: snapshot.val().lastname,
+            name: i,
             role: snapshot.val().role
           }
           ths.listusername.push(aname)
         })
         
-        console.log(i)
         
         
       }

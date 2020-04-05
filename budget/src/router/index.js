@@ -9,7 +9,7 @@ import viewDetail from '@/components/viewDetail'
 import Addproject from '@/components/Addproject'
 import register from '@/components/Register'
 import admin from '@/components/admin'
-
+import edituser from '@/components/edituser'
 
 Vue.use(Router)
 
@@ -61,6 +61,11 @@ export default new Router({
             path: '/admin',
             name: 'admin',
             component: admin
+          },
+          {
+            path: '/edituser',
+            name: 'edituser',
+            component: edituser
           }
           
 

@@ -7,7 +7,7 @@
             <v-img :src="require('../assets/loginicon.png')" class="my-3" height="200px" />
             <v-card class="elevation-12">
               <v-toolbar color="#AF281A" dark flat>
-                <v-toolbar-title>Register Budget System</v-toolbar-title>
+                <v-toolbar-title>Edit Budget System</v-toolbar-title>
                 <v-spacer />
               </v-toolbar>
 
@@ -43,21 +43,6 @@
                       <v-radio label="ผู้บริหาร" value="Manager"></v-radio>
                       <v-radio label="ผู้ดูแล" value="Keeper"></v-radio>
                     </v-radio-group>
-                    <v-text-field
-                      label="E-mail"
-                      name="email"
-                      id="email"
-                      type="text"
-                      v-model="email"
-                    />
-
-                    <v-text-field
-                      id="password"
-                      label="Password"
-                      name="password"
-                      type="password"
-                      v-model="password"
-                    />
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
@@ -80,14 +65,16 @@
 <script>
 import firebase from "firebase";
 export default {
+    created(){
+        this.getdetailuser(this.username)
+    },
   data() {
     return {
       firstname: "",
       lastname: "",
       role: "",
-      password: "",
       depart: "",
-      email: "",
+      username: "kolila",
       errorshow: ""
     };
   },
@@ -95,34 +82,28 @@ export default {
     source: String
   },
   methods: {
-    writeUserData(firstname, lastname, depart, email, password, role) {
+    getdetailuser() {
       const ths = this;
-      var username = email.replace(/@.*$/, "");
+      console.log(ths.username)
       firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          firebase
-            .database()
-            .ref("users/" + username)
-            .set({
+        .database()
+        .ref("users/" + ths.username)
+        .once("value")
+        .then(function(snapshot) {
+            ths.firstname = snapshot.val().firstname
+            ths.lastname = snapshot.val().lastname
+            ths.depart = snapshot.val().depart
+            ths.role = snapshot.val().role
+        });
+    },
+    editUserData(firstname, lastname, depart, role) {
+      const ths = this;
+      firebase.database().ref("users/" + ths.username).set({
               firstname: firstname,
               lastname: lastname,
               depart: depart,
-              uid: firebase.auth().currentUser.uid,
-              email: email,
               role: role
-            }).then(() =>{
-              console.log("Register Success");
-              window.location.href = "/admin";
-            })
-          
-        })
-        .catch(function(error) {
-          ths.errorshow = error.message;
-
-          console.log(ths.errorshow);
-        });
+            });
     }
   }
 };
