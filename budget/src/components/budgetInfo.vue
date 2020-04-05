@@ -82,21 +82,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in miniproject" :key="item.name" @click="setDetailCard(item)">
-                <td class="text-center">{{ item.name }}</td>
+              <tr v-for="item in miniproject" :key="item.name">
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.name }}</td>
                 <!-- show miniproject's budget -->
-                <td class="text-center">{{ item.responsible }}</td>
-                <td class="text-center">{{ item.budgetPlan }}</td>
-                <td class="text-center">{{ item.transfer }}</td>
-                <td class="text-center">{{ item.deposit }}</td>
-                <td class="text-center">{{ item.remainPlan }}</td>
-                <td class="text-center">{{ item.approval }}</td>
-                <td class="text-center">{{ item.expense }}</td>
-                <td class="text-center">
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.responsible }}</td>
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.budgetPlan }}</td>
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.transfer }}</td>
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.deposit }}</td>
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.remainPlan }}</td>
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.approval }}</td>
+                <td class="text-center" @click="setDetailCard(item,true)">{{ item.expense }}</td>
+                <td class="text-center" @click="setDetailCard(item,true)">
                   {{ item.remainApproval }}
                 </td>
-                <td class="text-center">{{item.remainExpense }}</td>
-                <td class="text-center"><Edit></Edit></td>
+                <td class="text-center" @click="setDetailCard(item,true)">{{item.remainExpense }}</td>
+                <td class="text-center" >
+                  <v-icon right  small  @click="setDetailCard(item,false)">mdi-pencil</v-icon>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -135,6 +137,12 @@
     </v-row>
 
     <v-row justify="center">
+      <v-dialog v-model="edit" max-width="600px">
+        <Edit/>
+      </v-dialog>
+    </v-row>
+
+    <v-row justify="center">
           <v-dialog justify="center" v-model="loading" max-width="400" persistent>
             <v-card>
               <v-card-title class="headline">รอสักครู่</v-card-title>
@@ -159,6 +167,7 @@ export default {
   name: "budgetInfo",
   components: { Edit , navbar , detailCard , addProject},
   data: () => ({
+    edit:false,
     addProject:false,
     detail:false,
     selectChoice:false,
@@ -243,6 +252,15 @@ export default {
     mainName:''
   }),
   methods: {
+    editProject(item){
+      this.$store.commit({
+        type: 'setDetail',
+        mainProject: this.mainName,
+        project: this
+
+      })
+
+    },
     async loadData(){
       const ref = firebase.database().ref('department')
       const data = await ref.once('value')
@@ -263,7 +281,7 @@ export default {
                 measure: dbProject.measure,
                 targetPoint: dbProject.targetPoint,
                 responsible: dbProject.responsible,
-                budget: dbProject.budgetPlan,
+                budgetPlan: dbProject.budgetPlan,
                 transfer: dbProject.transfer,
                 deposit: dbProject.deposit,
                 remainPlan: dbProject.remainPlan,
@@ -367,12 +385,14 @@ export default {
     },
 
     loadSubProject(selectedProject) {
+      console.log(selectedProject)
       const mainProject = this.listofProject.find(
-        ({ project }) => (project = selectedProject)
+        ({ project }) => (project == selectedProject)
       );
-      //console.log(mainProject);
+      console.log(mainProject);
       //display mainProject Data in data-table
       this.mainName = mainProject.project
+      console.log(mainProject.budgetPlan)
       this.displayMain = [{
         projectName: mainProject.project,
         responsible: mainProject.responsible,
@@ -413,7 +433,7 @@ export default {
         this.miniproject.push(subProject);
       }
     },
-    setDetailCard(item){
+    setDetailCard(item,decision){
       this.$store.commit({
         type: 'setDetail',
         mainProject: this.mainName,
@@ -437,7 +457,14 @@ export default {
         resultDetail: item.resultDetail,
         obstacle: item.obstacle
       })
-      this.detail = true
+      // decision: true = detailCard,false:edit
+      if(decision){
+        this.detail = true
+      }
+      else{
+        this.edit = true
+      }
+      
     },
     projectChoice(decision){
       this.addProject = true

@@ -52,7 +52,7 @@
               <v-col cols="12">
                 <v-text-field label="ผู้รับผิดชอบ" outlined dense required v-model="responsible"></v-text-field>
               </v-col>
-              <v-col cols="12">
+              <v-col v-if="!addProjectChoice" cols="12">
                 <v-text-field label="งบประมาณ(บาท)" outlined dense required type="number" v-model="budgetPlan"></v-text-field>
               </v-col>
                <v-col cols="12">
@@ -238,7 +238,7 @@ export default {
         console.log('mainProject:' + this.mainProject)
         console.log('year: '+year)
         console.log('budgetPlan: '+this.budgetPlan)
-        if(this.mainProject.length != 0 && year.length != 0 && this.budgetPlan.length != 0){
+        if(this.mainProject.length != 0 && year.length != 0){
           console.log('pass2')
           this.$store.commit({
             type: 'setLoading',
@@ -253,10 +253,10 @@ export default {
              measure: this.measure,
              targetPoint: this.targetPoint,
              responsible: this.responsible,
-             budgetPlan: this.budgetPlan,
+             budgetPlan: 0,
              transfer: 0,
              deposit: 0,
-             remainPlan: this.budgetPlan,
+             remainPlan: 0,
              approval: 0,
              expense:0,
              remainApproval:0,
@@ -303,6 +303,13 @@ export default {
             resultDetail:'',
             obstacle:''
           })
+          let mainRef = firebase.database().ref('department/' + department 
+          +'/year/' + year + '/mainProject/' + mainProject.key)
+          await mainRef.update({
+            budgetPlan: parseInt(mainProject.budgetPlan) + parseInt(this.budgetPlan),
+            remainPlan: parseInt(mainProject.remainPlan) + parseInt(this.budgetPlan)
+          })
+
           this.$store.commit({
             type: 'setLoading',
             loading: false

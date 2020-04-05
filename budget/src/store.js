@@ -6,26 +6,26 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         // Project Detail 
-        mainProject: 'Tee',  
-        project: 'TeeLek',
-        approval:10,
-        budgetPlan:10,
-        comment:'ff',
-        deposit:0,
-        expense:0,
-        measure:'tee',
-        obstacle:'no',
-        remainApproval:10,
-        remainExpense:10,
-        remainPlan:10,
-        responsible:'tee',
-        result:'very good',
-        resultDetail:'555+',
-        strategic:'tt',
-        strategicIssue:'no',
-        tactic:'tee',
-        targetPoint:25,
-        transfer:0,
+        mainProject: null,  
+        project: null,
+        approval:null,
+        budgetPlan:null,
+        comment:null,
+        deposit:null,
+        expense:null,
+        measure:null,
+        obstacle:null,
+        remainApproval:null,
+        remainExpense:null,
+        remainPlan:null,
+        responsible:null,
+        result:null,
+        resultDetail:null,
+        strategic:null,
+        strategicIssue:null,
+        tactic:null,
+        targetPoint:null,
+        transfer:null,
         //////////////////////////////////////////////////////////////////////
         addProjectChoice:false, // true = โปรเจคหลัก , false = โปรเจคย่อย  
         projectData:null,   //allProjectData
@@ -100,7 +100,7 @@ export default new Vuex.Store({
         },
         getLoading(state){
             return state.loading
-        }
+        },
            
     },
     mutations : {
