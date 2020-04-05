@@ -78,10 +78,10 @@ export default {
             .once("value")
             .then(function(snapshot) {
               if (snapshot.val().role == "Admin"){
-                window.location.href = "/admin"
+                this.$router.push({ name: 'admin' });
               }
               else{
-                window.location.href = "/home";
+                this.$router.push({ name: 'home' });
               }
             });
         })
@@ -91,16 +91,6 @@ export default {
           console.log(ths.errorshow);
         });
     },
-    checklogin() {
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          //window.location.href = "/home";
-        }
-      });
-    },
-    movetoregister() {
-      window.location.href = "/register";
-    }
   }
 };
 </script>

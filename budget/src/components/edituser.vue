@@ -47,7 +47,7 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer />
-                  <p class="errorshowclass">{{errorshow}}</p>
+                  <p class="errorshowclass">{{username}}</p>
                   <v-btn
                     color="#AF2215"
                     v-on:click="editUserData(firstname,lastname,depart,role)"
@@ -87,10 +87,10 @@ export default {
   methods: {
     getdetailuser() {
       const ths = this;
-      console.log(username)
+      console.log(this.username)
       firebase
         .database()
-        .ref("users/" + username)
+        .ref("users/" + this.username)
         .once("value")
         .then(function(snapshot) {
             ths.firstname = snapshot.val().firstname
@@ -107,7 +107,7 @@ export default {
               depart: depart,
               role: role
             })
-            window.location.href = "/admin"
+            this.$router.push({ name: 'admin' });
     }
   }
 };

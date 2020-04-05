@@ -29,7 +29,8 @@ export default new Vuex.Store({
         //////////////////////////////////////////////////////////////////////
         addProjectChoice:false, // true = โปรเจคหลัก , false = โปรเจคย่อย  
         projectData:null,   //allProjectData
-        loading:false
+        loading:false,
+        username:"ooo"
     },
     getters: {
         getMainProject(state){
@@ -101,6 +102,9 @@ export default new Vuex.Store({
         getLoading(state){
             return state.loading
         },
+        getUserdataname(state){
+            return state.username
+        },
            
     },
     mutations : {
@@ -134,6 +138,9 @@ export default new Vuex.Store({
         },
         setLoading(state,payload){
             state.loading = payload.loading
+        },
+        setUserdataname(state,payload){
+            state.username = payload.username
         }
     }
 })
