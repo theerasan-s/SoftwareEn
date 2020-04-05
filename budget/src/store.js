@@ -101,15 +101,11 @@ export default new Vuex.Store({
         },
         getLoading(state){
             return state.loading
-<<<<<<< HEAD
-        }, 
-=======
         },
         getUserdataname(state){
             return state.username
         },
            
->>>>>>> 23dc688077b31073ad82c50271eb24bf3b04ab80
     },
     mutations : {
         setDetail(state,payload){
