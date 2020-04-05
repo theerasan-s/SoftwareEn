@@ -51,7 +51,7 @@
                   <v-btn
                     color="#AF2215"
                     v-on:click="editUserData(firstname,lastname,depart,role)"
-                  >Register</v-btn>
+                  >Update</v-btn>
                 </v-card-actions>
               </div>
             </v-card>
@@ -101,7 +101,7 @@ export default {
     },
     editUserData(firstname, lastname, depart, role) {
       const ths = this;
-      firebase.database().ref("users/" + ths.username).set({
+      firebase.database().ref("users/" + ths.username).update({
               firstname: firstname,
               lastname: lastname,
               depart: depart,
