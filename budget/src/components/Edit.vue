@@ -102,11 +102,11 @@
                     <v-btn class="mx-auto" rounded color="primary" @click="dialog = false" light width="40%">โอนย้าย</v-btn>
                   </div>
               </v-col>
-              <v-btn large class="ma-2" color="error" @click="dialog = false" light>
+              <v-btn large class="ma-2" color="error"  light>
                 ยกเลิก
                 <v-icon right>mdi-check-circle-outline</v-icon>
               </v-btn>
-              <v-btn large class="ma-2" color="success" @click="dialog = false" light>
+              <v-btn large class="ma-2" color="success" @click="updateProject" light>
                 ยืนยัน
                 <v-icon right>mdi-check-circle-outline</v-icon>
                 </v-btn>
@@ -125,7 +125,12 @@ import { mapGetters } from 'vuex'
     }),
     methods: {
       updateProject(){
-        //const dbRef = firebase.database().ref('department/'+)
+        //console.log(this.projectData)
+        const departmentProject = this.projectData.find(({department}) => department =='coe')
+        console.log(departmentProject.year[2563])
+        //const mainProject = projectYear.find(({project})=>project==this.mainProject)
+        //console.log(mainProject)
+        //const dbRef = firebase.database().ref('department/coe'+)
       }
     },
     computed: {
@@ -144,7 +149,8 @@ import { mapGetters } from 'vuex'
         comment: 'getComment',
         result: 'getResult',
         resultDetail: 'getResultDetail',
-        obstacle: 'getObstacle'
+        obstacle: 'getObstacle',
+        projectData: 'getProjectData'
       })
     }
   }
