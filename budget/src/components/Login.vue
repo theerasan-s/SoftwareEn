@@ -92,7 +92,7 @@ export default {
         });
     },
   },
-  mounted(){
+  created(){
     const vm =this
     firebase.auth().onAuthStateChanged(user => {
       if(user){

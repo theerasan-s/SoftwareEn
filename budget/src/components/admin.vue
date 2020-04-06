@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="see">
     <navbar></navbar>
     <v-content>
       <v-container>
@@ -54,14 +54,40 @@ export default {
     })
   },
   created() {
-    this.getalluser();
+    const vm =this
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        firebase.database().ref('users').once('value')
+        .then(snapshot => {
+          const data = snapshot.val()
+          for(let i in data){
+            if(data[i].uid == user.uid){
+              if(data[i].role != "Admin"){
+                vm.$router.push('/home')
+              }
+              else{
+                vm.see = true
+                vm.getalluser();
+              }
+            }
+          }
+        })
+      }
+      else{
+        vm.$router.push('/')
+
+      }
+    })
+  
+    
   },
   data() {
     return {
       role: "",
       listusername: [],
       firstname: "",
-      lastname: ""
+      lastname: "",
+      see:false
     };
   },
   methods: {
@@ -107,9 +133,11 @@ export default {
       }
     },
     movetoregister() {
-      window.location.href = "/register";
+      this.$router.push('/register');
     }
-  }
+  },
+  
+    
 };
 </script>
 

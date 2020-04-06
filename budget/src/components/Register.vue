@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="see">
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
@@ -89,7 +89,8 @@ export default {
       password: "",
       depart: "",
       email: "",
-      errorshow: ""
+      errorshow: "",
+      see:false
     };
   },
   props: {
@@ -126,6 +127,31 @@ export default {
           console.log(vm.errorshow);
         });
     }
+  },
+  created(){
+    const vm =this
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        firebase.database().ref('users').once('value')
+        .then(snapshot => {
+          const data = snapshot.val()
+          for(let i in data){
+            if(data[i].uid == user.uid){
+              if(data[i].role != "Admin"){
+                vm.$router.push('/home')
+              }
+              else{
+                vm.see = true
+              }
+            }
+          }
+        })
+      }
+      else{
+        vm.$router.push('/')
+
+      }
+    })
   }
 };
 </script>
