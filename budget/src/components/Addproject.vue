@@ -64,7 +64,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="success" class="mr-4" @click="startAddProject">ตกลง</v-btn>
-          <v-btn color="error" @click="dialog = false">ยกเลิก</v-btn>
+          <v-btn color="error" @click="cancel">ยกเลิก</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -98,14 +98,7 @@ export default {
       selectDepartment:null,
       selectedMain :null,
       mainProjects:[],
-      departments:["วิศวกรรมโยธา",
-      "วิศวกรรมไฟฟ้า",
-      "วิศวกรรมการเกษตร",
-      "วิศวกรรมอุตสาหการ",
-      "วิศวกรรมเครื่องกล",
-      "วิศวกรรมสิ่งแวดล้อม",
-      "วิศวกรรมเคมี",
-      "วิศวกรรมคอมพิวเตอร์"],
+      departments:[],
       dialog: false,
       ชื่อโครงการย่อย: "",
       subProject:"",
@@ -253,14 +246,6 @@ export default {
              measure: this.measure,
              targetPoint: this.targetPoint,
              responsible: this.responsible,
-             budgetPlan: 0,
-             transfer: 0,
-             deposit: 0,
-             remainPlan: 0,
-             approval: 0,
-             expense:0,
-             remainApproval:0,
-             remainExpense:0,
              comment: this.comment,
              result: '',
              resultDetail:'',
@@ -269,6 +254,10 @@ export default {
             this.$store.commit({
             type: 'setLoading',
             loading: false
+            })
+            this.$store.commit({
+            type: 'setAddProject',
+            addProject: false
             })
             
             }
@@ -303,27 +292,34 @@ export default {
             resultDetail:'',
             obstacle:''
           })
-          let mainRef = firebase.database().ref('department/' + department 
-          +'/year/' + year + '/mainProject/' + mainProject.key)
-          await mainRef.update({
-            budgetPlan: parseInt(mainProject.budgetPlan) + parseInt(this.budgetPlan),
-            remainPlan: parseInt(mainProject.remainPlan) + parseInt(this.budgetPlan)
-          })
 
           this.$store.commit({
             type: 'setLoading',
             loading: false
           })
+          this.$store.commit({
+            type: 'setAddProject',
+            addProject: false
+            })
         }
         
 
       }
+    },
+    cancel(){
+      this.$store.commit({
+        type:'setAddProject',
+        addProject:false
+      })
     }
   },
   computed: {
     ...mapGetters({
       addProjectChoice: 'getAddProjectChoice',
-      projectData: 'getProjectData'
+      projectData: 'getProjectData',
+      currentUser: 'getCurrentUser',
+      currentDepartment: 'getCurrentDepartment',
+      role: 'getRole'
     }),
   
   },
@@ -337,8 +333,32 @@ export default {
 
 },
 mounted(){
-      var id = this
-      
+  var id = this
+  console.log(this.role)
+  if(this.currentDepartment == 'coe'){
+    this.departments.push("วิศวกรรมคอมพิวเตอร์")
+  }
+  else if(this.currentDepartment == 'ae'){
+    this.departments.push("วิศวกรรมการเกษตร")
+  }
+  else if(this.currentDepartment == 'ee'){
+    this.departments.push("วิศวกรรมไฟฟ้า")
+  }
+  else if(this.currentDepartment == 'ce'){
+    this.departments.push("วิศวกรรมโยธา")
+  }
+  else if(this.currentDepartment =='me'){
+    this.departments.push("วิศวกรรมเครื่องกล")
+  }
+  else if(this.currentDepartment == 'ie'){
+    this.departments.push("วิศวกรรมอุตสาหการ")
+  }
+  else if(this.currentDepartment =='envi'){
+    this.departments.push("วิศวกรรมสิ่งแวดล้อม")
+  }
+  else if(this.currentDepartment =='chem'){
+    this.departments.push("วิศวกรรมเคมี")
+  }
      
 }
 }

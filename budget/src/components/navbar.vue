@@ -5,18 +5,7 @@
       <v-spacer></v-spacer>
       <a style="color:white" class="mr-5 navbar" v-on:click="movetohome()">หน้าหลัก</a>
         <div class="text-center">
-        <v-menu offset-y>
-          <template v-slot:activator="{ on }">
-            <a v-on="on" style="color:white" class="mr-3 navbar">รายละเอียดโครงการ</a>
-          </template>
-          <v-list>
-            <v-list-item v-for="(item,index) in departmentselect" :key="index" :inactive="inactive">
-              <v-list-item-content>
-                <v-list-item-title v-on:click="selectdepart(index)"><a style="color:black;">{{ item }}</a></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+            <a  style="color:white" class="mr-3 navbar" @click="moveBudgetInfo">รายละเอียดโครงการ</a>
       </div>
       <a style="color:white" class="mr-5 navbar" v-on:click="logoutuser()">ออกจากระบบ</a>
     </v-app-bar>
@@ -52,25 +41,29 @@ export default {
     inactive:false
      
   }),
-  methods:{movetohome(){
-    window.location.href = "/home";
+  methods:{
+    moveBudgetInfo(){
+      this.$router.push('/budgetInfo')
+    },
+    movetohome(){
+      this.$router.push("/home")
   },
     logoutuser(){
      const bett = firebase.auth().currentUser
       console.log(bett);
       firebase.auth().signOut().then(function() {
-        window.location.href = "/login";
+         this.$router.push("/")
         }).catch(function(error) {
-  // An error happened.
-  });
-  }/*,checklogin(){
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (!user) {
-            window.location.href = "/login"
-            }
-});
 
-      }*/
-  }
-};
+        })
+      },
+    },
+    created(){
+      firebase.auth().onAuthStateChanged(user => {
+        if(!user){
+          this.$router.push('/')
+        }
+      })
+    } 
+}
 </script>

@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     writeUserData(firstname, lastname, depart, email, password, role) {
-      const ths = this;
+      const vm = this;
       var username = email.replace(/@.*$/, "");
       firebase
         .auth()
@@ -105,7 +105,8 @@ export default {
         .then(() => {
           firebase
             .database()
-            .ref("users/" + username)
+            .ref("users")
+            .push()
             .set({
               firstname: firstname,
               lastname: lastname,
@@ -115,14 +116,14 @@ export default {
               role: role
             }).then(() =>{
               console.log("Register Success");
-              window.location.href = "/admin";
+               vm.$router.push("/admin")
             })
           
         })
         .catch(function(error) {
-          ths.errorshow = error.message;
+          vm.errorshow = error.message;
 
-          console.log(ths.errorshow);
+          console.log(vm.errorshow);
         });
     }
   }

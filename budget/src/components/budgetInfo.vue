@@ -41,10 +41,15 @@
           ></v-select>
           <!-- Select main project -->
         </v-col>
+<<<<<<< HEAD
         <v-col cols="12" md="2" class="mt-9">
           <v-btn color="success" @click="selectChoice = true"
             >เพิ่มโครงการ</v-btn
           >
+=======
+        <v-col cols="12" md="2" class="mt-9" >
+          <v-btn color="success" @click="displaySelectChoice" v-if="ready" :key="index">เพิ่มโครงการ</v-btn>
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
         </v-col>
       </v-row>
     </v-container>
@@ -80,7 +85,7 @@
                 <th class="text-center">
                   คงเหลือจากเบิกจ่ายจริง
                 </th>
-                <th class="text-center">แก้ไข</th>
+                <th class="text-center" v-if="ready">แก้ไข</th>
               </tr>
             </thead>
             <tbody>
@@ -113,6 +118,7 @@
                 <td class="text-center" @click="setDetailCard(item, true)">
                   {{ item.remainApproval }}
                 </td>
+<<<<<<< HEAD
                 <td class="text-center" @click="setDetailCard(item, true)">
                   {{ item.remainExpense }}
                 </td>
@@ -120,6 +126,11 @@
                   <v-icon right small @click="setDetailCard(item, false)"
                     >mdi-pencil</v-icon
                   >
+=======
+                <td class="text-center" @click="setDetailCard(item,true)">{{item.remainExpense }}</td>
+                <td class="text-center" v-if="ready">
+                  <v-icon right  small  @click="setDetailCard(item,false)">mdi-pencil</v-icon>
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
                 </td>
               </tr>
             </tbody>
@@ -157,18 +168,29 @@
     </v-row>
 
     <v-row justify="center">
+<<<<<<< HEAD
       <v-dialog v-model="addProject" max-width="600px">
         <addProject />
+=======
+      <v-dialog v-model="addProject" max-width="600px" persistent>
+        <addProject :key="index"/>
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
       </v-dialog>
     </v-row>
 
     <v-row justify="center">
+<<<<<<< HEAD
       <v-dialog v-model="edit" max-width="600px">
         <Edit />
+=======
+      <v-dialog v-model="editProject" max-width="600px" persistent>
+        <Edit :key="index"/>
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
       </v-dialog>
     </v-row>
 
     <v-row justify="center">
+<<<<<<< HEAD
       <v-dialog justify="center" v-model="loading" max-width="400" persistent>
         <v-card>
           <v-card-title class="headline">รอสักครู่</v-card-title>
@@ -184,6 +206,57 @@
         </v-card>
       </v-dialog>
     </v-row>
+=======
+          <v-dialog justify="center" v-model="loading" max-width="400" persistent>
+            <v-card>
+              <v-card-title class="headline">รอสักครู่</v-card-title>
+              <div class="text-center" style="padding-top: 25px; padding-bottom:50px; ">
+                <v-progress-circular indeterminate color="green"></v-progress-circular>
+              </div>
+            </v-card>
+          </v-dialog>
+        </v-row>
+
+      <v-row justify="center">
+        <v-dialog v-model="transfering" max-width="600" persistent="">
+          <v-card width="800">
+            <v-row justify="center">
+              <h2 class="mt-1">โอนย้ายงบประมาณ</h2>
+            </v-row>
+            <v-container class="mt-3">
+            <v-row justify="center">
+              <v-col cols="12" md="4" class="mt-2">
+                <span>โครงการ: {{subProject}}</span>
+              </v-col> 
+              <v-col cols="12" md="2" class="mt-2">
+                <span>ไปยัง</span>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-select
+                :items="allSubProjectName" 
+                label="โครงการ" 
+                dense
+                outlined 
+                required
+                v-model="receiveProject"></v-select>
+              </v-col>
+              <v-col cols="10">
+                <v-text-field label="จำนวนเงิน(บาท)" outlined dense required type="number" v-model="transferAmount"></v-text-field>
+              </v-col>          
+            </v-row>
+            <v-row justify="center">
+              <v-col cols="3">
+                <v-btn color="error" @click="stopTransfering">ยกเลิก</v-btn>
+              </v-col>
+              <v-col cols="3">
+                <v-btn color="success" @click="transferBudget">ยืนยัน</v-btn>
+              </v-col>
+            </v-row>
+            </v-container>
+          </v-card>
+        </v-dialog>
+      </v-row>
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
   </v-app>
 </template>
 
@@ -199,11 +272,28 @@ export default {
   name: "budgetInfo",
   components: { Edit, navbar, detailCard, addProject },
   data: () => ({
+<<<<<<< HEAD
     edit: false,
     addProject: false,
     detail: false,
     selectChoice: false,
     headers: [
+=======
+    ready:false,
+    index:1,
+    isLoaded:false,
+    receiveProject:'',
+    currentUser: null,
+    currentDepartment: null,
+    role: null,
+    transferAmount:0,
+    receiveProject:'',
+    mainKey:null,
+    subKey:null,
+    detail:false,
+    selectChoice:false,
+    headers:[
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
       {
         text: "โครงการ",
         align: "center",
@@ -289,6 +379,7 @@ export default {
     completedproject: 40 /* Completed Project variable */,
     departmentData: [], //[{department:'coe',year:{2563:[{mainproject}]}}]
     mainpro: [],
+<<<<<<< HEAD
     departmentselect: [
       /* All Department variable */
       "วิศวกรรมโยธา",
@@ -300,17 +391,38 @@ export default {
       "วิศวกรรมเคมี",
       "วิศวกรรมคอมพิวเตอร์",
     ],
+=======
+    departmentselect:[],
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
     miniproject: [] /* 2 variable: name,budget [name:,budget:}]*/ /* All miniproject in main project */,
     selectDepartment: "",
     projectYear: [],
-    selectYear: "",
-    selectProject: "",
+    selectYear: null,
+    selectProject:null,
     projectList: [],
     listofProject: [], //[{}]
+<<<<<<< HEAD
     mainName: "",
   }),
   methods: {
     editProject(item) {
+=======
+    mainName:'',
+    budgetTransfering:false,
+    allSubProjectName:[],
+    allSubProject:[],
+    updateDepartment:'',
+    selectProject2:'',
+    latestSearch:null,
+    editData:'tee'
+  }),
+  methods: {
+    displaySelectChoice(){
+      this.index++
+      this.selectChoice = true
+    },
+    editProject(item){
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
       this.$store.commit({
         type: "setDetail",
         mainProject: this.mainName,
@@ -323,6 +435,7 @@ export default {
       XLSX.utils.book_append_sheet(wb, dataWS);
       XLSX.writeFile(wb, "รายละเอียดโครงการ.xlsx"  );
     },
+<<<<<<< HEAD
     async loadData() {
       const ref = firebase.database().ref("department");
       const data = await ref.once("value");
@@ -373,29 +486,44 @@ export default {
       });
       //console.log(this.departmentData)
     },
+=======
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
     departmentSelector() {
       //console.log(this.selectDepartment)
       this.selectYear = undefined;
       this.selectProject = undefined;
+      console.log('tmanranger')
 
       if (this.selectDepartment == "วิศวกรรมโยธา") {
+        this.updateDepartment ="ce"
         this.loadYear("ce");
-      } else if (this.selectDepartment == "วิศวกรรมไฟฟ้า") this.loadYear("ee");
-      else if (this.selectDepartment == "วิศวกรรมการเกษตร") {
+      } else if (this.selectDepartment == "วิศวกรรมไฟฟ้า") {
+        this.updateDepartment ="ee"
+        this.loadYear("ee");
+      } else if (this.selectDepartment == "วิศวกรรมการเกษตร") {
+        this.updateDepartment ="ae"
         this.loadYear("ae");
       } else if (this.selectDepartment == "วิศวกรรมอุตสาหการ") {
+        this.updateDepartment ="ie"
         this.loadYear("ie");
       } else if (this.selectDepartment == "วิศวกรรมเครื่องกล") {
+        this.updateDepartment ="me"
         this.loadYear("me");
       } else if (this.selectDepartment == "วิศวกรรมสิ่งแวดล้อม") {
+        this.updateDepartment ="envi"
         this.loadYear("envi");
       } else if (this.selectDepartment == "วิศวกรรมคอมพิวเตอร์") {
+        this.updateDepartment ="coe"
         this.loadYear("coe");
       } else if (this.selectDepartment == "วิศวกรรมเคมี") {
+        this.updateDepartment ="chem"
         this.loadYear("chem");
       }
     },
     loadYear(selectDepartment) {
+      console.log('year')
+      const projectData = this.$store.state.projectData
+      console.log(projectData)
       this.projectYear = [];
       //console.log(selectDepartment)
       let selectedDepartment = this.departmentData.find(
@@ -448,6 +576,7 @@ export default {
       }
     },
 
+<<<<<<< HEAD
     loadSubProject(selectedProject) {
       console.log(selectedProject);
       const mainProject = this.listofProject.find(
@@ -474,8 +603,68 @@ export default {
         },
       ];
 
+=======
+    loadSubProject() {
+      //console.log(this.selectProject)
+      const mainProject = this.listofProject.find(
+        ({ project }) => (project == this.selectProject)
+      );
+      //for transfer budget
+      this.allSubProjectName=[]
+      this.allSubProject=[]
+      for(let i in this.listofProject){
+        console.log(this.listofProject[i])
+        for(let j in this.listofProject[i].subProject){
+          let subProjectT = {
+          name:this.listofProject[i].subProject[j].project,
+          //budget: mainProject.subProject[i].budgetPlan,
+          measure: this.listofProject[i].subProject[j].measure,
+          strategicIssue: this.listofProject[i].subProject[j].strategicIssue,
+          strategic: this.listofProject[i].subProject[j].stategic,
+          tactic: this.listofProject[i].subProject[j].tactic,
+          targetPoint: this.listofProject[i].subProject[j].targetPoint,
+          responsible: this.listofProject[i].subProject[j].responsible,
+          budgetPlan: this.listofProject[i].subProject[j].budgetPlan,
+          transfer: this.listofProject[i].subProject[j].transfer,
+          deposit: this.listofProject[i].subProject[j].deposit,
+          remainPlan: this.listofProject[i].subProject[j].remainPlan,
+          approval: this.listofProject[i].subProject[j].approval,
+          expense: this.listofProject[i].subProject[j].expense,
+          remainApproval: this.listofProject[i].subProject[j].remainApproval,
+          remainExpense:this.listofProject[i].subProject[j].remainExpense,
+          comment:this.listofProject[i].subProject[j].comment,
+          result: this.listofProject[i].subProject[j].result,
+          resultDetail: this.listofProject[i].subProject[j].resultDetail,
+          obstacle: this.listofProject[i].subProject[j].obstacle,
+          subKey:j,
+          mainKey:this.listofProject[i].key
+        }
+          this.allSubProjectName.push(subProjectT.name)
+          this.allSubProject.push(subProjectT)
+        }
+      }
+      console.log(this.allSubProject)
+      //console.log(mainProject);
+      this.mainKey = mainProject.key
+      //display mainProject Data in data-table
+      this.mainName = mainProject.project
+      //console.log(mainProject.budgetPlan)
+      this.displayMain = [{
+        projectName: mainProject.project,
+        responsible: mainProject.responsible,
+        budgetPlan: mainProject.budgetPlan,
+        transfer: mainProject.transfer,
+        deposit: mainProject.deposit,
+        remainPlan: mainProject.remainPlan,
+        approval: mainProject.approval,
+        expense: mainProject.expense,
+        remainApproval: mainProject.remainApproval,
+        remainExpense: mainProject.remainExpense
+      }]
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
       //
-      this.miniproject = [];
+      //this.allSubProject=[]
+      this.miniproject = []
       for (let i in mainProject.subProject) {
         let subProject = {
           name: mainProject.subProject[i].project,
@@ -498,8 +687,13 @@ export default {
           result: mainProject.subProject[i].result,
           resultDetail: mainProject.subProject[i].resultDetail,
           obstacle: mainProject.subProject[i].obstacle,
+          key:i
         };
+<<<<<<< HEAD
 
+=======
+        //this.allSubProject.push(subProject.name)
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
         this.miniproject.push(subProject);
       }
 
@@ -548,8 +742,13 @@ export default {
         this.testExportProject.push(subProject);
       }
     },
+<<<<<<< HEAD
 
     setDetailCard(item, decision) {
+=======
+    setDetailCard(item,decision){
+      //console.log('tee')
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
       this.$store.commit({
         type: "setDetail",
         mainProject: this.mainName,
@@ -572,17 +771,46 @@ export default {
         result: item.result,
         resultDetail: item.resultDetail,
         obstacle: item.obstacle,
+<<<<<<< HEAD
       });
       // decision: true = detailCard,false:edit
       if (decision) {
         this.detail = true;
       } else {
         this.edit = true;
+=======
+        year: this.selectYear,
+        mainKey:this.mainKey,
+        subKey: item.key
+      })
+      // decision: true = detailCard,false:edit
+      if(decision){
+        this.detail = true
+      }
+      else{
+        console.log(item)
+        this.index++
+        this.$store.commit({
+          type: 'setEditProject',
+          editProject: true
+        })
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
       }
     },
+<<<<<<< HEAD
     projectChoice(decision) {
       this.addProject = true;
       if (decision) {
+=======
+    projectChoice(decision){
+      this.$store.commit({
+        type:'setAddProject',
+        addProject: true
+      })
+      this.index++
+      
+      if(decision){
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
         this.$store.commit({
           type: "setAddProjectChoice",
           choice: true,
@@ -594,10 +822,81 @@ export default {
         });
       }
     },
+<<<<<<< HEAD
+=======
+    stopTransfering(){
+    this.$store.commit({
+      type:'setTransfering',
+      transfering:false
+    })
+    },
+    async transferBudget(){
+      //console.log(this.miniproject)
+      const sender = this.allSubProject.find(({name}) => name == this.subProject)
+      const receiver = this.allSubProject.find(({name}) => name == this.receiveProject)
+      //console.log(sender)
+      //console.log(receiver)
+      const senderRef = firebase.database().ref('department/'+ this.currentDepartment 
+      + '/year/' +this.selectYear + '/mainProject/' + sender.mainKey + '/subProject/' + sender.subKey)
+      const recieverRef = firebase.database().ref('department/'+ this.currentDepartment 
+      + '/year/' +this.selectYear + '/mainProject/' + receiver.mainKey + '/subProject/' + receiver.subKey)
+      this.$store.commit({
+        type:'setLoading',
+        loading:true
+      })
+      await senderRef.update({
+        transfer: parseInt(sender.transfer) + parseInt(this.transferAmount),
+        remainPlan: parseInt(sender.remainPlan) -parseInt(this.transferAmount),
+        remainApproval: parseInt(sender.remainPlan) - parseInt(this.transferAmount) - parseInt(sender.approval),
+        remainExpense: parseInt(sender.remainPlan) - parseInt(this.transferAmount)- parseInt(sender.expense),
+
+      })
+      await recieverRef.update({
+        deposit: parseInt(receiver.deposit) + parseInt(this.transferAmount),
+        remainPlan:parseInt(receiver.remainPlan) + parseInt(this.transferAmount),
+        remainApproval: parseInt(receiver.remainPlan) + parseInt(this.transferAmount) - parseInt(receiver.approval),
+        remainExpense: parseInt(receiver.remainPlan) + parseInt(this.transferAmount)- parseInt(receiver.expense),
+
+      })
+      this.$store.commit({
+        type:'setLoading',
+        loading:false
+      })
+      this.stopTransfering()
+       this.$store.commit({
+        type:'setAddProject',
+        addProject: false
+      })
+      this.$store.commit({
+          type: 'setEditProject',
+          editProject: false
+        }) 
+    },
+    async loadUser(){
+      const vm =this
+    await firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        firebase.database().ref('users').once('value')
+        .then(snapshot => {
+          const userData = snapshot.val()
+          for(let i in userData){
+            if(userData[i].uid == user.uid){
+              if(userData[i].role == 'Keeper'){
+                vm.ready = true
+              }
+            }
+        }
+        })
+      }
+    })
+        
+  }
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
   },
 
   computed: {
     ...mapGetters({
+<<<<<<< HEAD
       loading: "getLoading",
     }),
   },
@@ -613,6 +912,169 @@ export default {
       });
   },
 };
+=======
+      loading: 'getLoading',
+      transfering: 'getTransfering',
+      subProject: 'getProject',
+      addProject: 'getAddProject',
+      editProject: 'getEditProject'
+    })
+  },
+  
+
+ mounted() {
+    const vm = this
+     firebase.database().ref('department').on('value', function(snapshot) {
+      console.log('load')
+      vm.departmentData=[]
+      const projectData = snapshot.val()
+      console.log(projectData)
+      for(let i in projectData){
+        // {department:coe,project} 
+        const mainData = {department:i,year:{}}
+        for(let j in projectData[i].year){
+          const project = [] // mainProject data
+          for(let k in projectData[i].year[j].mainProject){//projectData['coe'].year[2563]
+              //console.log(projectData[i].year[j].mainProject[k])
+              let dbProject = projectData[i].year[j].mainProject[k]
+              var mainProject = {
+                project: dbProject.project,
+                strategicIssue: dbProject.strategicIssue,
+                strategic: dbProject.stategic,
+                tactic: dbProject.tactic,
+                measure: dbProject.measure,
+                targetPoint: dbProject.targetPoint,
+                responsible: dbProject.responsible,
+                budgetPlan: 0,
+                transfer: 0,
+                deposit: 0,
+                remainPlan: 0,
+                approval: 0,
+                expense: 0,
+                remainApproval: 0,
+                remainExpense: 0,
+                comment: dbProject.comment,
+                result: dbProject.result,
+                resultDetail: dbProject.resultDetail,
+                obstacle: dbProject.obstacle,
+                subProject: dbProject.subProject,
+                key: k
+              }
+              
+              for(let t in projectData[i].year[j].mainProject[k].subProject){
+                //console.log('t')
+                let subProject = projectData[i].year[j].mainProject[k].subProject[t]
+                mainProject.budgetPlan += parseInt(subProject.budgetPlan)
+                mainProject.transfer += parseInt(subProject.transfer)
+                mainProject.deposit += parseInt(subProject.deposit)
+                mainProject.remainPlan += parseInt(subProject.remainPlan)
+                mainProject.approval += parseInt(subProject.approval)
+                mainProject.expense += parseInt(subProject.expense)
+                mainProject.remainApproval += parseInt(subProject.remainApproval)
+                mainProject.remainExpense += parseInt(subProject.remainExpense)
+              }
+              //console.log(mainProject)
+              project.push(mainProject)
+            }
+          mainData.year[j] = project
+          //console.log(miniData)
+      }
+      vm.departmentData.push(mainData)
+    }
+    vm.$store.commit({
+        type:'setProjectData',
+        projectData: vm.departmentData
+      })
+     
+        firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        firebase.database().ref('users').once('value')
+        .then(snapshot => {
+          const userData = snapshot.val()
+          for(let i in userData){
+            if(userData[i].uid == user.uid){
+              vm.$store.commit({
+                type:'setCurrentUserData',
+                currentUser: userData[i].firstname+' '+userData[i].lastname,
+                currentDepartment: userData[i].depart,
+                role: userData[i].role
+              })
+              if(userData[i].role == 'Keeper'){
+                vm.departmentselect = []
+                //console.log('role')
+                //console.log(userData[i].depart)
+                if(userData[i].depart == 'coe'){
+                  vm.departmentselect.push("วิศวกรรมคอมพิวเตอร์")
+                  vm.selectDepartment = "วิศวกรรมคอมพิวเตอร์"
+                  }
+                  else if(userData[i].depart == 'ae'){
+                    vm.departmentselect.push("วิศวกรรมการเกษตร")
+                    vm.selectDepartment = "วิศวกรรมการเกษตร"
+
+                    }
+                  else if(userData[i].depart == 'ee'){
+                    vm.departmentselect.push("วิศวกรรมไฟฟ้า")
+                    vm.selectDepartment = "วิศวกรรมไฟฟ้า"
+                  }
+                  else if(userData[i].depart == 'ce'){
+                    vm.departmentselect.push("วิศวกรรมโยธา")
+                    vm.selectDepartment = "วิศวกรรมโยธา"
+                  }
+                  else if(userData[i].depart =='me'){
+                    vm.departmentselect.push("วิศวกรรมเครื่องกล")
+                    vm.selectDepartment = "วิศวกรรมเครื่องกล"
+
+                  }
+                  else if(userData[i].depart == 'ie'){
+                    vm.departmentselect.push("วิศวกรรมอุตสาหการ")
+                    vm.selectDepartment = "วิศวกรรมอุตสาหการ"
+                  }
+                  else if(userData[i].depart =='envi'){
+                    vm.departmentselect.push("วิศวกรรมสิ่งแวดล้อม")
+                    vm.selectDepartment = "วิศวกรรมสิ่งแวดล้อม"
+                  }
+                  else if(userData[i].depart =='chem'){
+                    vm.departmentselect.push("วิศวกรรมเคมี")
+                    vm.selectDepartment = "วิศวกรรมเคมี"
+                  }
+              }
+              else{
+                vm.departmentselect = ["วิศวกรรมโยธา","วิศวกรรมไฟฟ้า","วิศวกรรมการเกษตร","วิศวกรรมอุตสาหการ","วิศวกรรมเครื่องกล","วิศวกรรมสิ่งแวดล้อม","วิศวกรรมเคมี","วิศวกรรมคอมพิวเตอร์"]
+              }
+              
+              vm.currentUser = userData[i].firstname+' '+userData[i].lastname
+              vm.currentDepartment = userData[i].depart
+              vm.role = userData[i].role
+              console.log(vm.currentDepartment)
+              vm.loadYear(vm.currentDepartment)
+              console.log('ttttttt')
+              if(vm.role == 'Keeper'){
+                console.log('i am keeper')
+                vm.ready = true
+              }
+              if(vm.selectYear != null){
+                vm.loadProject(vm.currentDepartment,vm.selectYear)
+                if(vm.selectProject != null){
+                  vm.loadSubProject()
+                }
+              }
+              break
+            }
+          }
+        }
+        )
+      }
+    })
+      })
+  
+  },
+
+  created(){
+    this.loadUser()
+  }
+  
+}
+>>>>>>> e44c2a412bb586d449d7f652e392651c62acfe3f
 </script>
 
 <style>

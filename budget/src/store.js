@@ -26,11 +26,20 @@ export default new Vuex.Store({
         tactic:null,
         targetPoint:null,
         transfer:null,
+        year:null,
         //////////////////////////////////////////////////////////////////////
         addProjectChoice:false, // true = โปรเจคหลัก , false = โปรเจคย่อย  
         projectData:null,   //allProjectData
         loading:false,
-        username:null
+        username:null,
+        mainKey:null,
+        subKey:null,
+        currentUser:null,
+        currentDepartment:null,
+        role:null,
+        transfering:false,
+        addProject:false,
+        editProject:false
     },
     getters: {
         getMainProject(state){
@@ -105,9 +114,44 @@ export default new Vuex.Store({
         getUserdataname(state){
             return state.username
         },
+        getYear(state){
+            return state.year
+        },
+        getMainKey(state){
+            return state.mainKey
+        },
+        getSubKey(state){
+            return state.subKey
+        },
+        getCurrentUser(state){
+            return state.currentUser
+        },
+        getCurrentDepartment(state){
+            return state.currentDepartment
+        },
+        getRole(state){
+            return state.role
+        },
+        getTransfering(state){
+            return state.transfering
+        },
+        getAddProject(state){
+            return state.addProject
+        },
+        getEditProject(state){
+            return state.editProject
+        }
            
     },
     mutations : {
+        setEditProject(state ,payload){
+            state.editProject = payload.editProject
+        },
+        setCurrentUserData(state,payload){
+            state.currentUser = payload.currentUser
+            state.currentDepartment = payload.currentDepartment
+            state.role = payload.role
+        },
         setDetail(state,payload){
             state.mainProject = payload.mainProject
             state.project = payload.project
@@ -129,6 +173,9 @@ export default new Vuex.Store({
             state.tactic = payload.tactic
             state.targetPoint = payload.targetPoint
             state.transfer = payload.transfer
+            state.year = payload.year
+            state.mainKey  = payload.mainKey
+            state.subKey = payload.subKey
         },
         setAddProjectChoice(state,payload){
             state.addProjectChoice = payload.choice
@@ -141,6 +188,16 @@ export default new Vuex.Store({
         },
         setUserdataname(state,payload){
             state.username = payload.username
+        },
+        setMainKey(state,payload){
+            state.mainKey = payload.mainKey
+        },
+        setTransfering(state,payload){
+            state.transfering = payload.transfering
+        },
+        setAddProject(state,payload){
+            state.addProject = payload.addProject
         }
+        
     }
 })
