@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     loginUserData() {
-      const ths = this;
+      const vm = this;
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
@@ -78,19 +78,40 @@ export default {
             .once("value")
             .then(function(snapshot) {
               if (snapshot.val().role == "Admin"){
-                window.location.href = "/admin";
+                vm.$router.push("/admin");
               }
               else{
-                window.location.href = "/home";
+                vm.$router.push("/home");
               }
             });
         })
         .catch(function(error) {
-          ths.errorshow = error.message;
+          vm.errorshow = error.message;
 
-          console.log(ths.errorshow);
+          console.log(vm.errorshow);
         });
     },
+  },
+  mounted(){
+    const vm =this
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        firebase.database().ref('users').once('value')
+        .then(snapshot => {
+          const data = snapshot.val()
+          for(let i in data){
+            if(data[i].uid == user.uid){
+              if(data[i].role != "Admin"){
+                vm.$router.push('/home')
+              }
+              else{
+                vm.$router.push('/admin')
+              }
+            }
+          }
+        })
+      }
+    })
   }
 };
 </script>

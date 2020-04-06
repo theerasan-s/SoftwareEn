@@ -32,25 +32,9 @@ export default new Router({
             component: budgetInfo
           },
           {
-            path: '/edit',
-            name: 'edit',
-            component: edit
-          },
-          {
-            path: '/login',
+            path: '/',
             name: 'login',
             component: login
-          },
-        
-          {
-            path: '/viewDetail',
-            name: 'viewDetail',
-            component: viewDetail
-          },
-          {
-            path: '/Addproject',
-            name: 'Addproject',
-            component: Addproject
           },
           {
             path: '/register',
