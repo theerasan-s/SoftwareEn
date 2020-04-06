@@ -48,6 +48,9 @@
     </v-container>
     
     <v-container style="max-width: 1650px">
+      <v-btn style="margin-left: 85%;" color="#C8E6C9" @click="onExport"
+        >Export<v-icon right dark>mdi-cloud-upload</v-icon></v-btn
+      >
       <h2 class="mb-2">ข้อมูลโครงการใหญ่</h2>
       <v-card>
         <v-data-table
@@ -311,6 +314,12 @@ export default {
 
       })
 
+    },
+      onExport() {
+      const dataWS = XLSX.utils.json_to_sheet(this.testExportProject);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, dataWS);
+      XLSX.writeFile(wb, "รายละเอียดโครงการ.xlsx"  );
     },
      onExport() {
       const dataWS = XLSX.utils.json_to_sheet(this.testExportProject);
