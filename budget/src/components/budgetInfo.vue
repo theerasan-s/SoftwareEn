@@ -207,11 +207,13 @@ import detailCard from './viewDetail'
 import addProject from './Addproject'
 import { mapGetters } from 'vuex';
 export default {
+  index:1,
   name: "budgetInfo",
   components: { Edit , navbar , detailCard , addProject},
   data: () => ({
+    transferAmount:0,
+    index:1,
     edit: false,
-    addProject: false,
     detail: false,
     selectChoice: false,
     headers: [
@@ -299,7 +301,9 @@ export default {
     updateDepartment:'',
     selectProject2:'',
     latestSearch:null,
-    editData:'tee'
+    editData:'tee',
+    receiveProject:null,
+    ready:false
   }),
   methods: {
     displaySelectChoice(){
